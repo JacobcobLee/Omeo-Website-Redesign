@@ -10,4 +10,20 @@ document.addEventListener('DOMContentLoaded', function(){
 			form.reset();
 		});
 	}
+
+	const carousel = document.querySelector('[data-carousel]');
+	const prevButton = document.querySelector('[data-carousel-prev]');
+	const nextButton = document.querySelector('[data-carousel-next]');
+
+	if(carousel && prevButton && nextButton){
+		const scrollAmount = () => Math.max(260, carousel.clientWidth * 0.75);
+
+		prevButton.addEventListener('click', function(){
+			carousel.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+		});
+
+		nextButton.addEventListener('click', function(){
+			carousel.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+		});
+	}
 });

@@ -1,74 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>OMEO</title>
-    <link rel="stylesheet" href="/styles/main.css">
-  </head>
-
-  <body>
-    <script src="script/main.js"></script>
-    
-
-
-
-
-
-
-
-
-
-
-  </body>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Simple Page — OMEO</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OMEO — Home</title>
     <link rel="stylesheet" href="styles/main.css">
   </head>
 
   <body>
-    <header class="site-header">
-      <div class="container header-inner">
-        <h1 class="site-title">OMEO</h1>
-        <nav class="site-nav" aria-label="Main navigation">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#">OMEO</a>
+
+        <nav class="main-nav" aria-label="Main navigation">
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">CATALOGUE</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#contact">CONTACT</a></li>
           </ul>
         </nav>
+
+        <div class="nav-actions">
+          <div class="search" role="search">
+            <input type="search" placeholder="Value" aria-label="Search">
+            <button type="button" aria-label="Search">🔍</button>
+          </div>
+          <button class="cart" type="button" aria-label="Cart">🛒</button>
+        </div>
       </div>
     </header>
 
-    <main class="container">
-      <section class="hero">
+    <main>
+      <section class="hero-visual" aria-label="Hero banner">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-band">
+            <h1 class="hero-title">FLOWSTATE</h1>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="container hero-copy">
         <h2>Welcome to OMEO</h2>
-        <p>This is a basic, responsive HTML template with simple styles and a small script.</p>
-        <p><a class="btn" href="#about">Learn more</a></p>
+        <p>This homepage now has a clean navbar and hero banner that matches your reference more closely.</p>
       </section>
 
-      <section id="about" class="cards">
-        <article class="card">
-          <h3>Semantic HTML</h3>
-          <p>Built with clear structure for accessibility and readability.</p>
-        </article>
-        <article class="card">
-          <h3>Responsive</h3>
-          <p>Layout adapts to smaller screens using simple CSS rules.</p>
-        </article>
-        <article class="card">
-          <h3>Lightweight</h3>
-          <p>No frameworks — easy to extend for assignments and projects.</p>
-        </article>
+      <section class="container featured-section" aria-label="Featured products">
+        <div class="section-heading">
+          <h2>FEATURED</h2>
+          <div class="carousel-controls">
+            <button type="button" class="carousel-button" data-carousel-prev aria-label="Previous featured items">‹</button>
+            <button type="button" class="carousel-button" data-carousel-next aria-label="Next featured items">›</button>
+          </div>
+        </div>
+
+        <div class="card-carousel" data-carousel>
+          <article class="product-card">
+            <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=800&q=80" alt="Snowboard standing upright">
+            <div class="product-body">
+              <h3>Turbo Men's</h3>
+              <p>Men's Snow Board</p>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="https://images.unsplash.com/photo-1516834473878-62f9f8f5fa32?auto=format&fit=crop&w=800&q=80" alt="Snowboard bindings close-up">
+            <div class="product-body">
+              <h3>Hydra-Flex</h3>
+              <p>Bindings</p>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="https://images.unsplash.com/photo-1511735643442-503bb3bd348a?auto=format&fit=crop&w=800&q=80" alt="Black hoodie on display">
+            <div class="product-body">
+              <h3>Essentials H.</h3>
+              <p>Black Unisex Hoodie</p>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <img src="https://images.unsplash.com/photo-1544976503-898a7f7f0c2b?auto=format&fit=crop&w=800&q=80" alt="Skis standing upright">
+            <div class="product-body">
+              <h3>Azure Velocity</h3>
+              <p>Skis</p>
+            </div>
+          </article>
+        </div>
       </section>
 
-      <section id="contact" class="contact">
+      <section class="banner-section" aria-label="Brand banner">
+        <div class="brand-strip">
+          <span>Red Bull</span>
+          <span>Vans</span>
+          <span>Monster</span>
+          <span>GoPro</span>
+          <span>Burton</span>
+          <span>Oakley</span>
+          <span>Quiksilver</span>
+          <span>Nike SB</span>
+        </div>
+      </section>
+
+      <section class="container split-section" aria-label="Catalogue and story">
+        <div class="split-card image-card">
+          <img src="https://images.unsplash.com/photo-1516826957135-700dedea6981?auto=format&fit=crop&w=900&q=80" alt="Snowboarder standing on a mountain">
+          <div class="split-card-label">SKIS</div>
+        </div>
+
+        <div class="split-text">
+          <p class="eyebrow">CATALOGUE</p>
+          <h2>WINTER COLLECTION</h2>
+          <p>Explore our core winter gear, from snowboards and bindings to outerwear and skis. This section gives the page a stronger editorial feel and balances the product carousel above.</p>
+        </div>
+
+        <div class="split-card image-card">
+          <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=900&q=80" alt="Snowboard held upright">
+          <div class="split-card-label">SNOW BOARD</div>
+        </div>
+      </section>
+
+      <section id="contact" class="container contact">
         <h2>Contact</h2>
         <form id="contactForm">
           <label for="name">Name</label>
@@ -81,12 +135,6 @@
         </form>
       </section>
     </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <p>&copy; 2026 OMEO — Built for INFO20005 assignment</p>
-      </div>
-    </footer>
 
     <script src="script/main.js"></script>
   </body>
