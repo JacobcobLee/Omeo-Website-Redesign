@@ -15,8 +15,8 @@
 
         <nav class="main-nav" aria-label="Main navigation">
           <ul>
-            <li><a href="#">HOME</a></li>
-            <li><a href="#">CATALOGUE</a></li>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="search.html">CATALOGUE</a></li>
             <li><a href="#about">ABOUT</a></li>
             <li><a href="#contact">CONTACT</a></li>
           </ul>
@@ -24,13 +24,42 @@
 
         <div class="nav-actions">
           <div class="search" role="search">
-            <input type="search" placeholder="Value" aria-label="Search">
-            <button type="button" aria-label="Search">🔍</button>
+            <input type="search" placeholder="Search…" aria-label="Search" id="headerSearch">
+            <button type="button" aria-label="Search" onclick="if(document.getElementById('headerSearch').value.trim())location.href='search.html?q='+encodeURIComponent(document.getElementById('headerSearch').value.trim())">🔍</button>
           </div>
-          <button class="cart" type="button" aria-label="Cart">🛒</button>
+          <button class="cart" type="button" aria-label="View cart" onclick="location.href='cart.html'">
+            🛒
+            <span class="cart-badge" id="cartBadge" hidden>0</span>
+          </button>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </header>
+
+    <!-- Mobile navigation overlay -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+      <div class="mobile-menu-header">
+        <a class="brand" href="index.html">OMEO</a>
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
+      </div>
+      <div class="mobile-search">
+        <input type="search" placeholder="Search products…" id="mobileSearch">
+        <button type="button" aria-label="Search" onclick="if(document.getElementById('mobileSearch').value.trim())location.href='search.html?q='+encodeURIComponent(document.getElementById('mobileSearch').value.trim())">🔍</button>
+      </div>
+      <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html">HOME</a>
+        <a href="search.html">CATALOGUE</a>
+        <a href="index.html#about">ABOUT US</a>
+        <a href="index.html#contact">CONTACT</a>
+      </nav>
+      <div class="mobile-nav-cart">
+        <span>🛒</span>
+        <a href="cart.html" style="color:#fff;text-decoration:none">View Cart</a>
+        <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
+      </div>
+    </div>
 
     <main>
       <section class="hero-visual" aria-label="Hero banner">
