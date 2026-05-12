@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/main.css">
   </head>
 
-  <body class="dark-theme">
+  <body class="dark-theme page-search">
 
     <!-- ===== NAV ===== -->
     <header class="topbar topbar--solid">
@@ -147,57 +147,8 @@
       /* ============================================================
          Search page data & logic
          ============================================================ */
-      const ALL_PRODUCTS = [
-        {
-          id: 'snowboard',
-          name: "Turbo Men's Snowboard",
-          category: 'Snowboards',
-          price: 699,
-          img: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=600&q=80'
-        },
-        {
-          id: 'hoodie',
-          name: 'Essentials Cotton Hoodie',
-          category: 'Apparel',
-          price: 89,
-          img: 'https://images.unsplash.com/photo-1511735643442-503bb3bd348a?auto=format&fit=crop&w=600&q=80'
-        },
-        {
-          id: 'bindings-hydra',
-          name: 'Hydra-Flex Pro Bindings',
-          category: 'Bindings',
-          price: 249,
-          img: 'https://images.unsplash.com/photo-1516834473878-62f9f8f5fa32?auto=format&fit=crop&w=600&q=80'
-        },
-        {
-          id: 'skis-azure',
-          name: 'Azure Velocity Skis',
-          category: 'Skis',
-          price: 599,
-          img: 'https://images.unsplash.com/photo-1544976503-898a7f7f0c2b?auto=format&fit=crop&w=600&q=80'
-        },
-        {
-          id: 'bag-pro',
-          name: 'Bag Pro',
-          category: 'Accessories',
-          price: 129,
-          img: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=600&q=80'
-        },
-        {
-          id: 'booties',
-          name: 'Booties',
-          category: 'Footwear',
-          price: 79,
-          img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'
-        },
-        {
-          id: 'bindings-blaster',
-          name: 'Blaster AsymWrap Bindings',
-          category: 'Bindings',
-          price: 199,
-          img: 'https://images.unsplash.com/photo-1536530077-f174cdab35f9?auto=format&fit=crop&w=600&q=80'
-        }
-      ];
+      // Product data is defined in main.js as OMEO_PRODUCTS
+      const ALL_PRODUCTS = OMEO_PRODUCTS;
 
       /* --- Render product grid --- */
       function renderProducts() {
