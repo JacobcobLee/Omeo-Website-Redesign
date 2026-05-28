@@ -19,18 +19,16 @@
           <ul>
             <li><a href="index.html">HOME</a></li>
             <li><a href="search.html" aria-current="page">CATALOGUE</a></li>
-            <li><a href="index.html#about">ABOUT</a></li>
-            <li><a href="index.html#contact">CONTACT</a></li>
           </ul>
         </nav>
 
         <div class="nav-actions">
           <div class="search" role="search">
             <input type="search" placeholder="Search…" aria-label="Search" id="headerSearch">
-            <button type="button" aria-label="Search" onclick="runSearch()">🔍</button>
+            <button type="button" aria-label="Search" onclick="runSearch()"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
           </div>
           <button class="cart" type="button" aria-label="View cart" onclick="location.href='cart.html'">
-            🛒
+            <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
             <span class="cart-badge" id="cartBadge" hidden>0</span>
           </button>
         </div>
@@ -54,8 +52,6 @@
       <nav class="mobile-nav">
         <a href="index.html">HOME</a>
         <a href="search.html">CATALOGUE</a>
-        <a href="index.html#about">ABOUT US</a>
-        <a href="index.html#contact">CONTACT</a>
       </nav>
       <div class="mobile-nav-cart">
         <span>🛒</span>
@@ -86,7 +82,7 @@
       <div class="filter-bar container">
         <p class="results-count" id="resultsCount">7 results</p>
         <div>
-          <label for="sortSelect" style="color:#8d99ae;font-size:0.9rem;margin-right:0.5rem">Sort by:</label>
+          <label for="sortSelect" style="color:#6b6b74;font-size:0.9rem;margin-right:0.5rem">Sort by:</label>
           <select id="sortSelect" onchange="renderProducts()">
             <option value="relevance">Relevance</option>
             <option value="price-asc">Price: Low to High</option>

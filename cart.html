@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OMEO — Cart</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+      /* ── Cart page ─────────────────────────────────────────── */
+      .cart-wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1rem 4rem; }
+
+      .cart-header { margin-bottom: 1.75rem; }
+      .cart-header h1 { font-size: 2.4rem; margin: 0 0 0.1rem; color: #1a1a1a; }
+      .cart-header p  { margin: 0; color: #6b6b74; font-size: 0.9rem; }
+
+      /* Empty state */
+      .cart-empty { text-align: center; padding: 4rem 1rem; }
+      .cart-empty p { color: #6b6b74; margin-bottom: 1.5rem; }
+
+      /* Line items */
+      .cart-items { display: flex; flex-direction: column; }
+      .cart-line {
+        display: grid;
+        grid-template-columns: 76px 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid #e8e8ee;
+      }
+      .cart-line img {
+        width: 76px; height: 76px;
+        object-fit: cover; border-radius: 8px;
+        background: #f5f5f7;
+        display: block;
+      }
+      .cart-line-info h4 {
+        margin: 0 0 0.2rem;
+        font-size: 0.95rem; font-weight: 600;
+        font-family: 'Barlow', sans-serif;
+        color: #1a1a1a;
+      }
+      .cart-line-info p {
+        margin: 0; font-size: 0.82rem; color: #6b6b74;
+      }
+      .cart-line-right {
+        display: flex; flex-direction: column;
+        align-items: flex-end; gap: 0.5rem;
+      }
+      .cart-line-price { font-size: 0.95rem; font-weight: 600; color: #1a1a1a; }
+
+      /* Qty stepper */
+      .qty-stepper { display: flex; align-items: center; gap: 0.4rem; }
+      .qty-stepper button {
+        width: 28px; height: 28px; border-radius: 50%;
+        border: 1.5px solid #d0d0d8; background: transparent; color: #1a1a1a;
+        cursor: pointer; display: inline-flex; align-items: center;
+        justify-content: center; font-size: 1rem;
+        transition: border-color 0.15s;
+      }
+      .qty-stepper button:hover { border-color: #1a1a1a; }
+      .qty-stepper span { min-width: 1.5rem; text-align: center; color: #1a1a1a; font-size: 0.9rem; }
+
+      /* Remove button */
+      .cart-remove {
+        background: transparent; border: 0;
+        color: #bbb; cursor: pointer; font-size: 1.1rem;
+        padding: 0; line-height: 1; align-self: flex-start;
+        transition: color 0.15s;
+      }
+      .cart-remove:hover { color: #e63946; }
+
+      /* Subtotal */
+      .cart-subtotal {
+        display: flex; align-items: baseline;
+        justify-content: space-between;
+        padding: 1.25rem 0 0.75rem;
+      }
+      .cart-subtotal-label { color: #6b6b74; font-size: 0.95rem; }
+      .cart-subtotal-value {
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 2.2rem; color: #1a1a1a; letter-spacing: 0.04em;
+      }
+
+      /* Shipping accordion */
+      .shipping-accordion { margin-bottom: 1.25rem; }
+
+      /* Action buttons */
+      .cart-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem; }
+      .cart-actions .btn-checkout {
+        padding: 0.85rem 1rem;
+        background: #1a1a1a; color: #fff; border: none;
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+        letter-spacing: 0.1em; border-radius: 8px; cursor: pointer;
+        transition: background 0.2s;
+      }
+      .cart-actions .btn-checkout:hover { background: #333; }
+      .cart-actions .btn-continue {
+        padding: 0.85rem 1rem;
+        background: transparent; color: #1a1a1a;
+        border: 1.5px solid rgba(0,0,0,0.25);
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+        letter-spacing: 0.1em; border-radius: 8px; cursor: pointer;
+        transition: border-color 0.2s;
+      }
+      .cart-actions .btn-continue:hover { border-color: #1a1a1a; }
+
+      /* Also bought */
+      .also-bought { margin-top: 2.5rem; border-top: 1px solid #e8e8ee; padding-top: 2rem; }
+      .also-bought h2 { font-size: 1.6rem; margin: 0 0 1rem; color: #1a1a1a; }
+    </style>
+  </head>
+
+  <body class="dark-theme">
+
+    <!-- ===== NAV ===== -->
+    <header class="topbar topbar--solid">
+      <div class="container topbar-inner">
+        <a class="brand" href="index.html">OMEO</a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="search.html">CATALOGUE</a></li>
+            <li><a href="index.html#about">ABOUT</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="search" role="search">
+            <input type="search" placeholder="Search…" aria-label="Search" id="headerSearch">
+            <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
+          </div>
+          <button class="cart" type="button" aria-label="View cart" onclick="location.href='cart.html'">
+            <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
+            <span class="cart-badge" id="cartBadge" hidden>0</span>
+          </button>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+      <div class="mobile-menu-header">
+        <a class="brand" href="index.html">OMEO</a>
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
+      </div>
+      <div class="mobile-search">
+        <input type="search" placeholder="Search products…" id="mobileSearch">
+        <button type="button" aria-label="Search">🔍</button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">HOME</a>
+        <a href="search.html">CATALOGUE</a>
+        <a href="index.html#about">ABOUT US</a>
+        <a href="index.html#contact">CONTACT</a>
+      </nav>
+      <div class="mobile-nav-cart">
+        <span>🛒</span>
+        <a href="cart.html" style="color:#fff;text-decoration:none">View Cart</a>
+        <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
+      </div>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+      <div class="cart-wrap">
+
+        <div class="cart-header">
+          <h1>YOUR CART</h1>
+          <p id="cartItemCount">0 items</p>
+        </div>
+
+        <!-- Line items -->
+        <div class="cart-items" id="cartItems"></div>
+
+        <!-- Subtotal + actions (hidden when empty) -->
+        <div id="cartFooter" hidden>
+
+          <div class="cart-subtotal">
+            <span class="cart-subtotal-label">Subtotal</span>
+            <span class="cart-subtotal-value" id="cartSubtotal">$0</span>
+          </div>
+
+          <!-- Shipping info accordion -->
+          <div class="accordion shipping-accordion" id="shippingAccordion">
+            <button class="accordion-header" aria-expanded="false" aria-controls="shippingBody">
+              Shipping info
+              <span class="accordion-icon" aria-hidden="true">▲</span>
+            </button>
+            <div class="accordion-body" id="shippingBody" role="region">
+              <div class="accordion-body-inner">
+                <ul class="specs-list">
+                  <li><strong>Free</strong><span>Orders over $500</span></li>
+                  <li><strong>Standard</strong><span>$12 — 3 to 5 business days</span></li>
+                  <li><strong>Express</strong><span>$25 — 1 to 2 business days</span></li>
+                  <li><strong>Pick up</strong><span>Free — Omeo, VIC 3898</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="cart-actions">
+            <button class="btn-checkout" onclick="location.href='payment.html'">CHECKOUT</button>
+            <button class="btn-continue" onclick="location.href='index.html'">CONTINUE SHOPPING</button>
+          </div>
+
+        </div>
+
+        <!-- Empty state -->
+        <div class="cart-empty" id="cartEmpty" hidden>
+          <p>Your cart is empty.</p>
+          <button class="btn-primary" onclick="location.href='search.html'">BROWSE PRODUCTS</button>
+        </div>
+
+        <!-- Others also bought -->
+        <div class="also-bought" id="alsoBought">
+          <div class="section-heading">
+            <h2>OTHERS ALSO BOUGHT</h2>
+            <div class="carousel-controls">
+              <button class="carousel-button" data-carousel-prev aria-label="Previous">‹</button>
+              <button class="carousel-button" data-carousel-next aria-label="Next">›</button>
+            </div>
+          </div>
+          <div class="card-carousel" data-carousel id="alsoBoughtCarousel"></div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer site-footer--dark" aria-label="Site footer">
+      <div class="container footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="search.html">Products</a></li>
+            <li><a href="#">Terms and conditions</a></li>
+          </ul>
+        </nav>
+        <div class="footer-social" aria-label="Social links">
+          <a href="#" aria-label="Instagram" class="social-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook" class="social-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 BILLIE'S OMEO SKI HIRE</div>
+    </footer>
+
+    <script src="script/main.js"></script>
+    <script>
+      /* ── Cart page logic ──────────────────────────────────── */
+
+      function renderCartPage() {
+        const cart      = getCart();
+        const itemsEl   = document.getElementById('cartItems');
+        const footerEl  = document.getElementById('cartFooter');
+        const emptyEl   = document.getElementById('cartEmpty');
+        const countEl   = document.getElementById('cartItemCount');
+        const totalEl   = document.getElementById('cartSubtotal');
+
+        const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+        countEl.textContent = totalQty + ' item' + (totalQty !== 1 ? 's' : '');
+
+        if (cart.length === 0) {
+          itemsEl.innerHTML = '';
+          footerEl.hidden   = true;
+          emptyEl.hidden    = false;
+          renderAlsoBought([]);
+          return;
+        }
+
+        emptyEl.hidden  = false;
+        emptyEl.hidden  = true;
+        footerEl.hidden = false;
+
+        /* Line items */
+        itemsEl.innerHTML = cart.map(item => `
+          <div class="cart-line" data-id="${item.id}">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-line-info">
+              <h4>${item.name}</h4>
+              <p>${item.category}</p>
+            </div>
+            <div class="cart-line-right">
+              <button class="cart-remove" onclick="removeLine('${item.id}')" aria-label="Remove ${item.name}">✕</button>
+              <span class="cart-line-price">$${(item.price * item.qty).toLocaleString()}</span>
+              <div class="qty-stepper">
+                <button onclick="changeLine('${item.id}', -1)" aria-label="Decrease quantity">−</button>
+                <span>${item.qty}</span>
+                <button onclick="changeLine('${item.id}', 1)" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+          </div>`).join('');
+
+        /* Subtotal */
+        const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        totalEl.textContent = '$' + subtotal.toLocaleString();
+
+        /* Also bought */
+        renderAlsoBought(cart.map(i => i.id));
+      }
+
+      function changeLine(id, delta) {
+        updateCartItemQty(id, delta);
+        renderCartPage();
+      }
+
+      function removeLine(id) {
+        removeCartItem(id);
+        renderCartPage();
+      }
+
+      /* Products NOT already in the cart */
+      function renderAlsoBought(cartIds) {
+        const carousel = document.getElementById('alsoBoughtCarousel');
+        const suggestions = OMEO_PRODUCTS.filter(p => !cartIds.includes(p.id));
+
+        if (suggestions.length === 0) {
+          document.getElementById('alsoBought').hidden = true;
+          return;
+        }
+        document.getElementById('alsoBought').hidden = false;
+
+        carousel.innerHTML = suggestions.map(p => `
+          <article class="product-card" onclick="location.href='product.html?id=${p.id}'">
+            <img src="${p.img}" alt="${p.name}">
+            <div class="product-body">
+              <div class="product-body-row">
+                <div>
+                  <h3>${p.name}</h3>
+                  <p>$${p.price}</p>
+                </div>
+                <button class="card-add" type="button"
+                  onclick="event.stopPropagation(); addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')}); renderCartPage();"
+                  aria-label="Add ${p.name} to cart">+</button>
+              </div>
+            </div>
+          </article>`).join('');
+      }
+
+      /* Shipping accordion */
+      document.getElementById('shippingAccordion')
+        .querySelector('.accordion-header')
+        .addEventListener('click', function() {
+          const acc    = document.getElementById('shippingAccordion');
+          const isOpen = acc.classList.toggle('is-open');
+          this.setAttribute('aria-expanded', isOpen);
+        });
+
+      /* Boot */
+      document.addEventListener('DOMContentLoaded', renderCartPage);
+    </script>
+  </body>
+</html>
