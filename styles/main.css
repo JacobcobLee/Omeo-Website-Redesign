@@ -17,9 +17,8 @@
 .product-body p{margin:0.2rem 0 0;color:var(--muted);font-size:0.92rem}
 .card-add{width:32px;height:32px;border-radius:50%;border:1.5px solid #d0d0d8;background:#fff;cursor:pointer;font-size:1.15rem;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:0;line-height:1;color:var(--text)}
 .card-add:hover{background:#f5f5f7}
-.banner-section{margin:2rem 0;background:#060606;color:#fff;padding:2.2rem 1rem}
-.brand-strip{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2rem}
-.brand-logo{height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:0.85}
+.banner-section{margin:2rem 0;background:#060606;color:#fff;padding:0;overflow:hidden}
+.trust-banner-img{display:block;width:100%;height:15rem;object-fit:cover}
 .eyebrow{margin:0;font-size:0.9rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--muted)}
 
 /* Catalogue grid */
@@ -88,7 +87,7 @@
 .topbar{position:absolute;top:0;left:0;right:0;z-index:20}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;padding:0.6rem 1rem}
 .brand{font-weight:700;color:#fff;background:transparent}
-.main-nav ul{display:flex;gap:2rem;align-items:center;margin:0;padding:0}
+.main-nav ul{display:flex;gap:2rem;align-items:center;margin:0;padding:0;list-style:none}
 .main-nav a{color:#fff;text-decoration:none;font-weight:700;letter-spacing:1px;padding-bottom:0.1rem}
 .main-nav a:hover{opacity:0.9}
 .nav-actions{display:flex;gap:0.75rem;align-items:center}
@@ -97,11 +96,10 @@
 .search button{border:0;background:transparent;padding:6px 8px;cursor:pointer}
 .cart{background:transparent;border:0;color:#fff;font-size:1.1rem;cursor:pointer}
 
-.hero-visual{position:relative;height:420px;background-image:url('https://images.unsplash.com/photo-1454496522488-7a8e488e8606?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center;display:flex;align-items:center;justify-content:center}
+.hero-visual{position:relative;height:600px;background-image:url("../assets/hero_banner_valentino.png");background-size:cover;background-position:top;display:flex;align-items:center;justify-content:center}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.35))}
 .hero-content{position:relative;z-index:10;width:100%;display:flex;align-items:center;justify-content:center}
-.hero-band{width:100%;max-width:1100px;padding:2.25rem 1rem;background:rgba(0,0,0,0.35);backdrop-filter:blur(2px);text-align:center}
-.hero-title{margin:0;color:#fff;font-size:4rem;letter-spacing:0.5rem;font-weight:800}
+.hero-title{margin:0;color:#fff;font-size:4rem;letter-spacing:0.5rem;font-weight:800;text-shadow:0 2px 24px rgba(0,0,0,0.55)}
 
 @media(max-width:700px){
 	.main-nav{display:none}
@@ -110,6 +108,7 @@
 	.section-heading{align-items:flex-end}
 	.section-heading h2{font-size:1.4rem}
 	.split-card{min-height:260px}
+  .trust-banner-img{display:block;width:100%;height:4rem;object-fit:cover}
 }
 
 
@@ -148,13 +147,13 @@
    payment, confirmation).  Apply via <body class="dark-theme">
    ============================================================ */
 .dark-theme{
-  --bg:#1a1a1a;
-  --surface:#2a2a2a;
+  --bg:#ffffff;
+  --surface:#f5f5f7;
   --accent:#e63946;
-  --text:#f0f0f0;
-  --muted:#8d99ae;
-  background:#1a1a1a;
-  color:#f0f0f0;
+  --text:#1a1a1a;
+  --muted:#6b6b74;
+  background:#ffffff;
+  color:#1a1a1a;
 }
 
 /* Bebas Neue for all headings */
@@ -182,6 +181,10 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 /* ============================================================
    CART BADGE
    ============================================================ */
+/* Nav icon images */
+.nav-icon{display:block;width:20px;height:20px;object-fit:contain;filter:brightness(0) invert(1)}
+.search button{display:flex;align-items:center;justify-content:center}
+
 .cart{position:relative}
 .cart-badge{
   position:absolute;top:-6px;right:-8px;
@@ -243,15 +246,15 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
    SHARED DARK PAGE COMPONENTS
    Product cards, buttons, form inputs for dark pages
    ============================================================ */
-.dark-theme .product-card{background:#2a2a2a;border-color:#3a3a3a}
-.dark-theme .product-body h3{color:#f0f0f0}
-.dark-theme .product-body p{color:#8d99ae}
-.dark-theme .card-add{background:#333;border-color:#555;color:#f0f0f0}
-.dark-theme .card-add:hover{background:#444}
-.dark-theme .carousel-button{background:#2a2a2a;border-color:#444;color:#fff}
+.dark-theme .product-card{background:#fff;border-color:#e7e7ec}
+.dark-theme .product-body h3{color:#1a1a1a}
+.dark-theme .product-body p{color:#6b6b74}
+.dark-theme .card-add{background:#fff;border-color:#d0d0d8;color:#1a1a1a}
+.dark-theme .card-add:hover{background:#f5f5f7}
+.dark-theme .carousel-button{background:#fff;border-color:#d9d9df;color:#1a1a1a}
 
 .btn-primary{
-  display:inline-block;background:#e63946;color:#fff;
+  display:inline-block;background:#2C2C2C;color:#fff;
   padding:0.7rem 1.4rem;border:none;border-radius:6px;
   font-family:'Barlow',sans-serif;font-size:0.95rem;font-weight:600;
   cursor:pointer;text-decoration:none;letter-spacing:0.04em;
@@ -259,13 +262,13 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 }
 .btn-primary:hover{background:#c92f3b}
 .btn-outline{
-  display:inline-block;background:transparent;color:#f0f0f0;
-  padding:0.7rem 1.4rem;border:1.5px solid rgba(255,255,255,0.4);border-radius:6px;
+  display:inline-block;background:transparent;color:#1a1a1a;
+  padding:0.7rem 1.4rem;border:1.5px solid rgba(0,0,0,0.3);border-radius:6px;
   font-family:'Barlow',sans-serif;font-size:0.95rem;font-weight:600;
   cursor:pointer;text-decoration:none;letter-spacing:0.04em;
   transition:border-color 0.2s,color 0.2s;
 }
-.btn-outline:hover{border-color:#fff;color:#fff}
+.btn-outline:hover{border-color:#1a1a1a;color:#1a1a1a}
 
 /* ============================================================
    SEARCH PAGE STYLES
@@ -273,19 +276,19 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 .page-search-header{padding:2rem 0 1rem}
 .search-bar-large{
   display:flex;align-items:center;
-  background:#2a2a2a;border:1px solid #3a3a3a;border-radius:8px;
+  background:#f5f5f7;border:1px solid #e0e0e6;border-radius:8px;
   overflow:hidden;margin-bottom:0.6rem;
 }
 .search-bar-large input{
-  flex:1;background:transparent;border:0;color:#f0f0f0;
+  flex:1;background:transparent;border:0;color:#1a1a1a;
   font-family:'Barlow',sans-serif;font-size:1.05rem;
   padding:0.75rem 1rem;outline:none;
 }
-.search-bar-large input::placeholder{color:#8d99ae}
+.search-bar-large input::placeholder{color:#9b9ba8}
 .search-bar-large button{
   background:transparent;border:0;
   padding:0.75rem 1rem;cursor:pointer;
-  font-size:1.1rem;color:#8d99ae;
+  font-size:1.1rem;color:#6b6b74;
 }
 .did-you-mean{margin:0.4rem 0 0;font-size:0.9rem;color:#8d99ae}
 .did-you-mean a{color:#e63946;text-decoration:none}
@@ -294,12 +297,12 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 .filter-bar{
   display:flex;align-items:center;justify-content:space-between;
   padding-top:0;padding-bottom:1rem;
-  border-bottom:1px solid #2e2e2e;margin-bottom:1.5rem;
+  border-bottom:1px solid #e8e8ee;margin-bottom:1.5rem;
 }
-.results-count{margin:0;color:#8d99ae;font-size:0.9rem}
+.results-count{margin:0;color:#6b6b74;font-size:0.9rem}
 .filter-bar select{
-  background:#2a2a2a;border:1px solid #3a3a3a;border-radius:6px;
-  color:#f0f0f0;font-family:'Barlow',sans-serif;font-size:0.9rem;
+  background:#f5f5f7;border:1px solid #e0e0e6;border-radius:6px;
+  color:#1a1a1a;font-family:'Barlow',sans-serif;font-size:0.9rem;
   padding:0.45rem 0.8rem;cursor:pointer;outline:none;
 }
 
@@ -316,33 +319,33 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 }
 .dark-theme .product-card:hover{
   transform:translateY(-3px);
-  box-shadow:0 8px 24px rgba(0,0,0,0.4);
+  box-shadow:0 8px 24px rgba(0,0,0,0.12);
 }
 .product-card-price{
-  font-weight:600;font-size:1rem;color:#f0f0f0;
+  font-weight:600;font-size:1rem;color:#1a1a1a;
   margin:0.2rem 0 0;
 }
 .product-card-category{
   font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:#8d99ae;margin:0;
+  color:#6b6b74;margin:0;
 }
 
 .cart-preview-section{
   margin-top:3rem;padding-top:1.5rem;
-  border-top:1px solid #2e2e2e;
+  border-top:1px solid #e8e8ee;
 }
-.cart-preview-section h2{font-size:1.4rem;margin:0 0 1rem;color:#f0f0f0}
-.cart-preview-empty{color:#8d99ae;font-size:0.95rem}
+.cart-preview-section h2{font-size:1.4rem;margin:0 0 1rem;color:#1a1a1a}
+.cart-preview-empty{color:#6b6b74;font-size:0.95rem}
 .cart-preview-list{display:flex;flex-direction:column;gap:0.75rem}
 .cart-preview-item{
   display:flex;align-items:center;gap:1rem;
-  background:#2a2a2a;border-radius:8px;padding:0.75rem;
+  background:#f5f5f7;border-radius:8px;padding:0.75rem;
 }
-.cart-preview-item img{width:56px;height:56px;object-fit:cover;border-radius:6px;background:#333}
+.cart-preview-item img{width:56px;height:56px;object-fit:cover;border-radius:6px;background:#e8e8ee}
 .cart-preview-item-info{flex:1}
-.cart-preview-item-info p{margin:0;font-size:0.9rem;color:#8d99ae}
-.cart-preview-item-info strong{color:#f0f0f0;font-size:0.95rem}
-.cart-preview-item-price{font-weight:600;color:#f0f0f0;font-size:0.95rem}
+.cart-preview-item-info p{margin:0;font-size:0.9rem;color:#6b6b74}
+.cart-preview-item-info strong{color:#1a1a1a;font-size:0.95rem}
+.cart-preview-item-price{font-weight:600;color:#1a1a1a;font-size:0.95rem}
 .cart-preview-actions{margin-top:1.25rem;display:flex;gap:0.75rem}
 
 /* ============================================================
@@ -479,7 +482,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
   flex-shrink:0;padding:0 0.2rem;line-height:1;
   transition:color 0.2s;
 }
-.thumb-nav-btn:hover{color:#f0f0f0}
+.thumb-nav-btn:hover{color:#1a1a1a}
 .thumb-strip{
   display:flex;gap:0.5rem;overflow-x:auto;flex:1;
   scroll-snap-type:x mandatory;padding-bottom:2px;
@@ -499,7 +502,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 .product-main-img{position:relative;margin:0 1rem}
 .product-main-img img{
   width:100%;height:360px;object-fit:cover;display:block;
-  border-radius:12px;background:#2a2a2a;
+  border-radius:12px;background:#f5f5f7;
   transition:opacity 0.2s;
 }
 .wishlist-btn{
@@ -515,7 +518,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 
 /* Info section */
 .product-info{padding:1.25rem 1rem 0}
-.product-name{font-size:2rem;margin:0 0 0.4rem;color:#f0f0f0;line-height:1.05}
+.product-name{font-size:2rem;margin:0 0 0.4rem;color:#1a1a1a;line-height:1.05}
 .product-tag{
   display:inline-block;background:#2a9d4e;color:#fff;
   font-size:0.75rem;font-family:'Barlow',sans-serif;font-weight:600;
@@ -524,7 +527,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 }
 .product-price{
   font-family:'Bebas Neue',sans-serif;font-size:2.2rem;
-  color:#f0f0f0;margin:0 0 0.35rem;line-height:1;
+  color:#1a1a1a;margin:0 0 0.35rem;line-height:1;
 }
 .product-price sup{font-size:0.95rem;vertical-align:super;margin-right:0.1rem}
 .product-tagline{color:#8d99ae;font-size:0.9rem;margin:0 0 1.25rem;line-height:1.5}
@@ -536,8 +539,8 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
   text-transform:uppercase;color:#8d99ae;margin-bottom:0.35rem;
 }
 .selector-group select{
-  width:100%;background:#2a2a2a;border:1px solid #3a3a3a;border-radius:8px;
-  color:#f0f0f0;font-family:'Barlow',sans-serif;font-size:0.95rem;
+  width:100%;background:#f5f5f7;border:1px solid #e0e0e6;border-radius:8px;
+  color:#1a1a1a;font-family:'Barlow',sans-serif;font-size:0.95rem;
   padding:0.55rem 0.75rem;cursor:pointer;outline:none;
 }
 
@@ -545,24 +548,24 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 .product-actions{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem}
 .btn-cart{
   width:100%;padding:0.8rem 1rem;
-  border:1.5px solid rgba(255,255,255,0.3);background:transparent;color:#f0f0f0;
+  border:1.5px solid #d0d0d8;background:transparent;color:#1a1a1a;
   font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;
   border-radius:8px;cursor:pointer;transition:border-color 0.2s,background 0.2s;
 }
-.btn-cart:hover{border-color:#fff;background:rgba(255,255,255,0.06)}
+.btn-cart:hover{border-color:#1a1a1a;background:rgba(0,0,0,0.04)}
 .btn-buy{
   width:100%;padding:0.8rem 1rem;
-  border:none;background:#1a1a1a;color:#f0f0f0;
+  border:none;background:#1a1a1a;color:#fff;
   font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.1em;
   border-radius:8px;cursor:pointer;transition:background 0.2s;
 }
-.btn-buy:hover{background:#2e2e2e}
+.btn-buy:hover{background:#333}
 
 /* Accordion */
-.accordion{border-top:1px solid #2e2e2e;margin-bottom:1rem}
+.accordion{border-top:1px solid #e8e8ee;margin-bottom:1rem}
 .accordion-header{
   width:100%;background:transparent;border:0;
-  border-bottom:1px solid #2e2e2e;color:#f0f0f0;
+  border-bottom:1px solid #e8e8ee;color:#1a1a1a;
   font-family:'Barlow',sans-serif;font-size:0.95rem;font-weight:500;
   padding:0.85rem 0;display:flex;align-items:center;justify-content:space-between;
   cursor:pointer;text-align:left;
@@ -572,12 +575,12 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
 .accordion-body{overflow:hidden;max-height:0;transition:max-height 0.35s ease}
 .accordion.is-open .accordion-body{max-height:900px}
 .accordion-body-inner{padding:1rem 0}
-.accordion-body-inner p{margin:0 0 0.75rem;color:#8d99ae;font-size:0.9rem;line-height:1.65}
+.accordion-body-inner p{margin:0 0 0.75rem;color:#6b6b74;font-size:0.9rem;line-height:1.65}
 .specs-list{list-style:none;padding:0;margin:0;display:grid;gap:0.35rem}
 .specs-list li{
-  display:flex;gap:0.5rem;font-size:0.88rem;color:#8d99ae;
+  display:flex;gap:0.5rem;font-size:0.88rem;color:#6b6b74;
 }
-.specs-list li strong{color:#c0c0c8;min-width:90px;flex-shrink:0}
+.specs-list li strong{color:#444;min-width:90px;flex-shrink:0}
 
 
 

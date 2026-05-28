@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <header class="topbar">
+    <header class="topbar topbar--solid">
       <div class="container topbar-inner">
         <a class="brand" href="#">OMEO</a>
 
@@ -17,18 +17,16 @@
           <ul>
             <li><a href="index.html">HOME</a></li>
             <li><a href="search.html">CATALOGUE</a></li>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#contact">CONTACT</a></li>
           </ul>
         </nav>
 
         <div class="nav-actions">
           <div class="search" role="search">
             <input type="search" placeholder="Search…" aria-label="Search" id="headerSearch">
-            <button type="button" aria-label="Search">🔍</button>
+            <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
           </div>
           <button class="cart" type="button" aria-label="View cart" onclick="location.href='cart.html'">
-            🛒
+            <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
             <span class="cart-badge" id="cartBadge" hidden>0</span>
           </button>
         </div>
@@ -46,16 +44,14 @@
       </div>
       <div class="mobile-search">
         <input type="search" placeholder="Search products…" id="mobileSearch">
-        <button type="button" aria-label="Search" onclick="if(document.getElementById('mobileSearch').value.trim())location.href='search.html?q='+encodeURIComponent(document.getElementById('mobileSearch').value.trim())">🔍</button>
+        <button type="button" aria-label="Search" onclick="if(document.getElementById('mobileSearch').value.trim())location.href='search.html?q='+encodeURIComponent(document.getElementById('mobileSearch').value.trim())"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
       </div>
       <nav class="mobile-nav" aria-label="Mobile navigation">
         <a href="index.html">HOME</a>
         <a href="search.html">CATALOGUE</a>
-        <a href="index.html#about">ABOUT US</a>
-        <a href="index.html#contact">CONTACT</a>
       </nav>
       <div class="mobile-nav-cart">
-        <span>🛒</span>
+        <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
         <a href="cart.html" style="color:#fff;text-decoration:none">View Cart</a>
         <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
       </div>
@@ -65,9 +61,7 @@
       <section class="hero-visual" aria-label="Hero banner">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-          <div class="hero-band">
-            <h1 class="hero-title">FLOWSTATE</h1>
-          </div>
+          <h1 class="hero-title">FLOWSTATE</h1>
         </div>
       </section>
 
@@ -86,7 +80,7 @@
         </div>
 
         <div class="card-carousel" data-carousel>
-          <article class="product-card">
+          <article class="product-card" onclick="location.href='product.html?id=snowboard'" style="cursor:pointer">
             <img src="assets/bataleon-snow-board.png" alt="Turbo Men's Snowboard">
             <div class="product-body">
               <div class="product-body-row">
@@ -94,12 +88,12 @@
                   <h3>Turbo Men's</h3>
                   <p>Men's Snow Board</p>
                 </div>
-                <button class="card-add" type="button" aria-label="Add to cart">+</button>
+                <button class="card-add" type="button" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart(OMEO_PRODUCTS.find(p=>p.id==='snowboard'))">+</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" onclick="location.href='product.html?id=bindings-hydra'" style="cursor:pointer">
             <img src="assets/bataleon-snow-binder.png" alt="Hydra-Flex Bindings">
             <div class="product-body">
               <div class="product-body-row">
@@ -107,12 +101,12 @@
                   <h3>Hydra-Flex</h3>
                   <p>Bindings</p>
                 </div>
-                <button class="card-add" type="button" aria-label="Add to cart">+</button>
+                <button class="card-add" type="button" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart(OMEO_PRODUCTS.find(p=>p.id==='bindings-hydra'))">+</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" onclick="location.href='product.html?id=hoodie'" style="cursor:pointer">
             <img src="assets/hoodie.png" alt="Essentials Cotton Hoodie">
             <div class="product-body">
               <div class="product-body-row">
@@ -120,12 +114,12 @@
                   <h3>Essentials H.</h3>
                   <p>Black Unisex Hoodie</p>
                 </div>
-                <button class="card-add" type="button" aria-label="Add to cart">+</button>
+                <button class="card-add" type="button" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart(OMEO_PRODUCTS.find(p=>p.id==='hoodie'))">+</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" onclick="location.href='product.html?id=skis-azure'" style="cursor:pointer">
             <img src="" alt="Azure Velocity Skis">
             <div class="product-body">
               <div class="product-body-row">
@@ -133,12 +127,12 @@
                   <h3>Azure Velocity</h3>
                   <p>Skis</p>
                 </div>
-                <button class="card-add" type="button" aria-label="Add to cart">+</button>
+                <button class="card-add" type="button" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart(OMEO_PRODUCTS.find(p=>p.id==='skis-azure'))">+</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" onclick="location.href='product.html?id=snowboard'" style="cursor:pointer">
             <img src="assets/bataleon-snow-board.png" alt="Freeride Pro Snowboard">
             <div class="product-body">
               <div class="product-body-row">
@@ -146,20 +140,20 @@
                   <h3>Freeride Pro</h3>
                   <p>Men's Snowboard</p>
                 </div>
-                <button class="card-add" type="button" aria-label="Add to cart">+</button>
+                <button class="card-add" type="button" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart(OMEO_PRODUCTS.find(p=>p.id==='snowboard'))">+</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
-            <img src="assets/bataleon-snow-board.png" alt="Summit Board Snowboard">
+          <article class="product-card" onclick="location.href='product.html?id=bag-pro'" style="cursor:pointer">
+            <img src="assets/snow-board-bag.png" alt="Bag Pro">
             <div class="product-body">
               <div class="product-body-row">
                 <div>
-                  <h3>Summit Board</h3>
-                  <p>All-Mountain</p>
+                  <h3>Bag Pro</h3>
+                  <p>Accessories</p>
                 </div>
-                <button class="card-add" type="button" aria-label="Add to cart">+</button>
+                <button class="card-add" type="button" aria-label="Add to cart" onclick="event.stopPropagation(); addToCart(OMEO_PRODUCTS.find(p=>p.id==='bag-pro'))">+</button>
               </div>
             </div>
           </article>
@@ -167,18 +161,7 @@
       </section>
 
       <section class="banner-section" aria-label="Brand partners">
-        <div class="brand-strip">
-          <img src="https://logo.clearbit.com/redbull.com"       alt="Red Bull"       class="brand-logo">
-          <img src="https://logo.clearbit.com/vans.com"          alt="Vans"           class="brand-logo">
-          <img src="https://logo.clearbit.com/monsterenergy.com" alt="Monster Energy" class="brand-logo">
-          <img src="https://logo.clearbit.com/gopro.com"         alt="GoPro"          class="brand-logo">
-          <img src="https://logo.clearbit.com/burton.com"        alt="Burton"         class="brand-logo">
-          <img src="https://logo.clearbit.com/oakley.com"        alt="Oakley"         class="brand-logo">
-          <img src="https://logo.clearbit.com/skullcandy.com"    alt="Skullcandy"     class="brand-logo">
-          <img src="https://logo.clearbit.com/adidas.com"        alt="Adidas Terrex"  class="brand-logo">
-          <img src="https://logo.clearbit.com/quiksilver.com"    alt="Quiksilver"     class="brand-logo">
-          <img src="https://logo.clearbit.com/nike.com"          alt="Nike SB"        class="brand-logo">
-        </div>
+        <img src="assets/media/whtite trust banner.png" alt="Brand partners" class="trust-banner-img">
       </section>
 
       <section class="catalogue-section container" aria-label="Catalogue">

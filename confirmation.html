@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OMEO — Order Confirmed</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+      /* ── Confirmation page ─────────────────────────────────── */
+      .confirm-wrap { max-width: 680px; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
+
+      /* Success badge */
+      .confirm-badge {
+        width: 56px; height: 56px; border-radius: 50%;
+        background: #e8f5ee; border: 2px solid #2a9d4e;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: 1.25rem;
+      }
+      .confirm-badge svg { color: #2a9d4e; }
+
+      .confirm-header { margin-bottom: 0.35rem; }
+      .confirm-header h1 { font-size: 2.6rem; margin: 0; color: #1a1a1a; line-height: 1; }
+      .confirm-header .order-num { color: #e63946; }
+      .confirm-subhead { color: #6b6b74; font-size: 0.95rem; margin: 0.4rem 0 2rem; }
+
+      /* Delivery info card */
+      .delivery-card {
+        background: #f5f5f7;
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .delivery-row {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        font-size: 0.92rem;
+        color: #1a1a1a;
+      }
+      .delivery-row svg { color: #6b6b74; flex-shrink: 0; }
+      .delivery-row strong { font-weight: 600; }
+      .delivery-row span { color: #6b6b74; }
+
+      /* Map */
+      .map-wrap {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        height: 240px;
+        background: #e8e8ee;
+      }
+      .map-wrap iframe {
+        width: 100%; height: 100%;
+        border: 0; display: block;
+      }
+      .map-track-btn {
+        position: absolute;
+        bottom: 1rem; right: 1rem;
+        padding: 0.55rem 1.1rem;
+        background: #1a1a1a; color: #fff;
+        border: none; border-radius: 6px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1rem; letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: background 0.2s;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      }
+      .map-track-btn:hover { background: #333; }
+
+      /* Action buttons */
+      .confirm-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+        margin-bottom: 2.5rem;
+      }
+      .btn-order-details {
+        padding: 0.85rem 1rem;
+        background: #1a1a1a; color: #fff; border: none;
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+        letter-spacing: 0.1em; border-radius: 8px; cursor: pointer;
+        transition: background 0.2s;
+      }
+      .btn-order-details:hover { background: #333; }
+      .btn-keep-shopping {
+        padding: 0.85rem 1rem;
+        background: transparent; color: #1a1a1a;
+        border: 1.5px solid rgba(0,0,0,0.25);
+        font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
+        letter-spacing: 0.1em; border-radius: 8px; cursor: pointer;
+        transition: border-color 0.2s;
+      }
+      .btn-keep-shopping:hover { border-color: #1a1a1a; }
+
+      /* Order details modal/drawer */
+      .order-details-panel {
+        display: none;
+        background: #f5f5f7;
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .order-details-panel.is-open { display: block; }
+      .order-details-panel h3 { font-size: 1rem; margin: 0 0 1rem; color: #1a1a1a; }
+      .order-detail-row {
+        display: flex; justify-content: space-between;
+        font-size: 0.88rem; color: #6b6b74;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid #e8e8ee;
+      }
+      .order-detail-row:last-child { border-bottom: 0; }
+      .order-detail-row strong { color: #1a1a1a; }
+
+      /* Also bought */
+      .also-bought-confirm { margin-top: 1rem; border-top: 1px solid #e8e8ee; padding-top: 2rem; }
+      .also-bought-confirm h2 { font-size: 1.6rem; margin: 0 0 1rem; color: #1a1a1a; }
+    </style>
+  </head>
+
+  <body class="dark-theme">
+
+    <!-- ===== NAV ===== -->
+    <header class="topbar topbar--solid">
+      <div class="container topbar-inner">
+        <a class="brand" href="index.html">OMEO</a>
+
+        <nav class="main-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="search.html">CATALOGUE</a></li>
+            <li><a href="index.html#about">ABOUT</a></li>
+            <li><a href="index.html#contact">CONTACT</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-actions">
+          <div class="search" role="search">
+            <input type="search" placeholder="Search…" aria-label="Search" id="headerSearch">
+            <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
+          </div>
+          <button class="cart" type="button" aria-label="View cart" onclick="location.href='cart.html'">
+            <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
+            <span class="cart-badge" id="cartBadge" hidden>0</span>
+          </button>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
+      <div class="mobile-menu-header">
+        <a class="brand" href="index.html">OMEO</a>
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
+      </div>
+      <div class="mobile-search">
+        <input type="search" placeholder="Search products…" id="mobileSearch">
+        <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
+      </div>
+      <nav class="mobile-nav">
+        <a href="index.html">HOME</a>
+        <a href="search.html">CATALOGUE</a>
+        <a href="index.html#about">ABOUT US</a>
+        <a href="index.html#contact">CONTACT</a>
+      </nav>
+      <div class="mobile-nav-cart">
+        <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
+        <a href="cart.html" style="color:#fff;text-decoration:none">View Cart</a>
+        <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
+      </div>
+    </div>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+      <div class="confirm-wrap">
+
+        <!-- Success icon -->
+        <div class="confirm-badge" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+
+        <!-- Heading -->
+        <div class="confirm-header">
+          <h1>THANK YOU!<br>ORDER <span class="order-num">#<span id="orderNum">67</span></span></h1>
+        </div>
+        <p class="confirm-subhead">We've received your order and will send a confirmation email shortly.</p>
+
+        <!-- Delivery info -->
+        <div class="delivery-card">
+          <div class="delivery-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span><strong>Estimated delivery:</strong> <span>22–25 April 2026</span></span>
+          </div>
+          <div class="delivery-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span><strong>Shipping to:</strong> <span>336 Melbourne, VIC 3000</span></span>
+          </div>
+          <div class="delivery-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            <span><strong>Carrier:</strong> <span>Australia Post Express</span></span>
+          </div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.0!2d144.9631!3d-37.8136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d6a32f6d3f82!2sMelbourne%20VIC%203000!5e0!3m2!1sen!2sau!4v1"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Delivery location map"
+            aria-label="Map showing delivery location in Melbourne">
+          </iframe>
+          <button class="map-track-btn" type="button" onclick="alert('Tracking: Australia Post — EN123456789AU')">TRACK</button>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="confirm-actions">
+          <button class="btn-order-details" type="button" onclick="toggleOrderDetails()">ORDER DETAILS</button>
+          <button class="btn-keep-shopping" type="button" onclick="location.href='index.html'">CONTINUE SHOPPING</button>
+        </div>
+
+        <!-- Order details panel (toggle) -->
+        <div class="order-details-panel" id="orderDetailsPanel" aria-live="polite">
+          <h3>Order #<span id="orderNumDetail">67</span></h3>
+          <div id="orderDetailItems"></div>
+          <div class="order-detail-row">
+            <span>Shipping</span>
+            <strong id="detailShipping">$12</strong>
+          </div>
+          <div class="order-detail-row">
+            <span>Total paid</span>
+            <strong id="detailTotal">$0</strong>
+          </div>
+        </div>
+
+        <!-- Others also bought -->
+        <div class="also-bought-confirm" id="alsoBoughtConfirm">
+          <div class="section-heading">
+            <h2>OTHERS ALSO BOUGHT</h2>
+            <div class="carousel-controls">
+              <button class="carousel-button" data-carousel-prev aria-label="Previous">‹</button>
+              <button class="carousel-button" data-carousel-next aria-label="Next">›</button>
+            </div>
+          </div>
+          <div class="card-carousel" data-carousel id="confirmCarousel"></div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer site-footer--dark" aria-label="Site footer">
+      <div class="container footer-inner">
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li><a href="search.html">Products</a></li>
+            <li><a href="#">Terms and conditions</a></li>
+          </ul>
+        </nav>
+        <div class="footer-social" aria-label="Social links">
+          <a href="#" aria-label="Instagram" class="social-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook" class="social-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">© 2026 BILLIE'S OMEO SKI HIRE</div>
+    </footer>
+
+    <script src="script/main.js"></script>
+    <script>
+      /* ── Confirmation page logic ─────────────────────────── */
+
+      const ORDER_NUM = Math.floor(60 + Math.random() * 40);
+
+      function boot() {
+        /* Set order number */
+        document.getElementById('orderNum').textContent        = ORDER_NUM;
+        document.getElementById('orderNumDetail').textContent  = ORDER_NUM;
+
+        /* Build order details from whatever was in the cart before payment cleared it */
+        const stored = sessionStorage.getItem('lastOrder');
+        const items  = stored ? JSON.parse(stored) : [];
+
+        renderOrderDetails(items);
+        renderAlsoBought(items.map(i => i.id));
+      }
+
+      function renderOrderDetails(items) {
+        const el       = document.getElementById('orderDetailItems');
+        const totalEl  = document.getElementById('detailTotal');
+        const shipEl   = document.getElementById('detailShipping');
+
+        if (items.length === 0) {
+          el.innerHTML = '<div class="order-detail-row"><span>No items recorded</span><strong>—</strong></div>';
+          totalEl.textContent = '—';
+          return;
+        }
+
+        const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+        const shipping = subtotal >= 500 ? 0 : 12;
+        const total    = subtotal + shipping;
+
+        el.innerHTML = items.map(item => `
+          <div class="order-detail-row">
+            <span>${item.name} ×${item.qty}</span>
+            <strong>$${(item.price * item.qty).toLocaleString()}</strong>
+          </div>`).join('');
+
+        shipEl.textContent = shipping === 0 ? 'Free' : '$' + shipping;
+        totalEl.textContent = '$' + total.toLocaleString();
+      }
+
+      function toggleOrderDetails() {
+        const panel = document.getElementById('orderDetailsPanel');
+        panel.classList.toggle('is-open');
+        const btn = document.querySelector('.btn-order-details');
+        btn.textContent = panel.classList.contains('is-open') ? 'HIDE DETAILS' : 'ORDER DETAILS';
+      }
+
+      function renderAlsoBought(purchasedIds) {
+        const carousel   = document.getElementById('confirmCarousel');
+        const section    = document.getElementById('alsoBoughtConfirm');
+        const suggestions = OMEO_PRODUCTS.filter(p => !purchasedIds.includes(p.id));
+
+        if (suggestions.length === 0) { section.hidden = true; return; }
+
+        carousel.innerHTML = suggestions.map(p => `
+          <article class="product-card" onclick="location.href='product.html?id=${p.id}'" style="cursor:pointer">
+            <img src="${p.img}" alt="${p.name}">
+            <div class="product-body">
+              <div class="product-body-row">
+                <div>
+                  <h3>${p.name}</h3>
+                  <p>$${p.price}</p>
+                </div>
+                <button class="card-add" type="button"
+                  onclick="event.stopPropagation(); addToCart(${JSON.stringify(p).replace(/"/g,'&quot;')})"
+                  aria-label="Add ${p.name} to cart">+</button>
+              </div>
+            </div>
+          </article>`).join('');
+      }
+
+      /* Save cart to sessionStorage before payment.html clears it */
+      document.addEventListener('DOMContentLoaded', () => {
+        /* If arriving fresh (cart already cleared by payment), try sessionStorage */
+        if (!sessionStorage.getItem('lastOrder')) {
+          const cart = getCart();
+          if (cart.length > 0) sessionStorage.setItem('lastOrder', JSON.stringify(cart));
+        }
+        boot();
+      });
+    </script>
+  </body>
+</html>
