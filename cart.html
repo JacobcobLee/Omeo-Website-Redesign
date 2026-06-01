@@ -6,109 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>OMEO — Cart</title>
     <link rel="stylesheet" href="styles/main.css">
-    <style>
-      /* ── Cart page ─────────────────────────────────────────── */
-      .cart-wrap { max-width: 680px; margin: 0 auto; padding: 2rem 1rem 4rem; }
-
-      .cart-header { margin-bottom: 1.75rem; }
-      .cart-header h1 { font-size: 2.4rem; margin: 0 0 0.1rem; color: #1a1a1a; }
-      .cart-header p  { margin: 0; color: #6b6b74; font-size: 0.9rem; }
-
-      /* Empty state */
-      .cart-empty { text-align: center; padding: 4rem 1rem; }
-      .cart-empty p { color: #6b6b74; margin-bottom: 1.5rem; }
-
-      /* Line items */
-      .cart-items { display: flex; flex-direction: column; }
-      .cart-line {
-        display: grid;
-        grid-template-columns: 76px 1fr auto;
-        gap: 1rem;
-        align-items: center;
-        padding: 1rem 0;
-        border-bottom: 1px solid #e8e8ee;
-      }
-      .cart-line img {
-        width: 76px; height: 76px;
-        object-fit: cover; border-radius: 8px;
-        background: #f5f5f7;
-        display: block;
-      }
-      .cart-line-info h4 {
-        margin: 0 0 0.2rem;
-        font-size: 0.95rem; font-weight: 600;
-        font-family: 'Barlow', sans-serif;
-        color: #1a1a1a;
-      }
-      .cart-line-info p {
-        margin: 0; font-size: 0.82rem; color: #6b6b74;
-      }
-      .cart-line-right {
-        display: flex; flex-direction: column;
-        align-items: flex-end; gap: 0.5rem;
-      }
-      .cart-line-price { font-size: 0.95rem; font-weight: 600; color: #1a1a1a; }
-
-      /* Qty stepper */
-      .qty-stepper { display: flex; align-items: center; gap: 0.4rem; }
-      .qty-stepper button {
-        width: 28px; height: 28px; border-radius: 50%;
-        border: 1.5px solid #d0d0d8; background: transparent; color: #1a1a1a;
-        cursor: pointer; display: inline-flex; align-items: center;
-        justify-content: center; font-size: 1rem;
-        transition: border-color 0.15s;
-      }
-      .qty-stepper button:hover { border-color: #1a1a1a; }
-      .qty-stepper span { min-width: 1.5rem; text-align: center; color: #1a1a1a; font-size: 0.9rem; }
-
-      /* Remove button */
-      .cart-remove {
-        background: transparent; border: 0;
-        color: #bbb; cursor: pointer; font-size: 1.1rem;
-        padding: 0; line-height: 1; align-self: flex-start;
-        transition: color 0.15s;
-      }
-      .cart-remove:hover { color: #e63946; }
-
-      /* Subtotal */
-      .cart-subtotal {
-        display: flex; align-items: baseline;
-        justify-content: space-between;
-        padding: 1.25rem 0 0.75rem;
-      }
-      .cart-subtotal-label { color: #6b6b74; font-size: 0.95rem; }
-      .cart-subtotal-value {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 2.2rem; color: #1a1a1a; letter-spacing: 0.04em;
-      }
-
-      /* Shipping accordion */
-      .shipping-accordion { margin-bottom: 1.25rem; }
-
-      /* Action buttons */
-      .cart-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 2rem; }
-      .cart-actions .btn-checkout {
-        padding: 0.85rem 1rem;
-        background: #1a1a1a; color: #fff; border: none;
-        font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
-        letter-spacing: 0.1em; border-radius: 8px; cursor: pointer;
-        transition: background 0.2s;
-      }
-      .cart-actions .btn-checkout:hover { background: #333; }
-      .cart-actions .btn-continue {
-        padding: 0.85rem 1rem;
-        background: transparent; color: #1a1a1a;
-        border: 1.5px solid rgba(0,0,0,0.25);
-        font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem;
-        letter-spacing: 0.1em; border-radius: 8px; cursor: pointer;
-        transition: border-color 0.2s;
-      }
-      .cart-actions .btn-continue:hover { border-color: #1a1a1a; }
-
-      /* Also bought */
-      .also-bought { margin-top: 2.5rem; border-top: 1px solid #e8e8ee; padding-top: 2rem; }
-      .also-bought h2 { font-size: 1.6rem; margin: 0 0 1rem; color: #1a1a1a; }
-    </style>
+    <link rel="stylesheet" href="styles/cart.css">
   </head>
 
   <body class="dark-theme">
@@ -122,8 +20,6 @@
           <ul>
             <li><a href="index.html">HOME</a></li>
             <li><a href="search.html">CATALOGUE</a></li>
-            <li><a href="index.html#about">ABOUT</a></li>
-            <li><a href="index.html#contact">CONTACT</a></li>
           </ul>
         </nav>
 
@@ -146,22 +42,20 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
-      <div class="mobile-menu-header">
+      <header class="mobile-menu-header">
         <a class="brand" href="index.html">OMEO</a>
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
       </div>
-      <div class="mobile-search">
+      <div class="mobile-search" role="search">
         <input type="search" placeholder="Search products…" id="mobileSearch">
-        <button type="button" aria-label="Search">🔍</button>
+        <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
       </div>
       <nav class="mobile-nav">
         <a href="index.html">HOME</a>
         <a href="search.html">CATALOGUE</a>
-        <a href="index.html#about">ABOUT US</a>
-        <a href="index.html#contact">CONTACT</a>
       </nav>
       <div class="mobile-nav-cart">
-        <span>🛒</span>
+        <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
         <a href="cart.html" style="color:#fff;text-decoration:none">View Cart</a>
         <span class="cart-badge" id="cartBadgeMobile" hidden>0</span>
       </div>
@@ -171,13 +65,13 @@
     <main>
       <div class="cart-wrap">
 
-        <div class="cart-header">
+        <header class="cart-header">
           <h1>YOUR CART</h1>
           <p id="cartItemCount">0 items</p>
-        </div>
+        </header>
 
         <!-- Line items -->
-        <div class="cart-items" id="cartItems"></div>
+        <ul class="cart-items" id="cartItems"></ul>
 
         <!-- Subtotal + actions (hidden when empty) -->
         <div id="cartFooter" hidden>
@@ -220,7 +114,7 @@
         </div>
 
         <!-- Others also bought -->
-        <div class="also-bought" id="alsoBought">
+        <section class="also-bought" id="alsoBought" aria-label="Others also bought">
           <div class="section-heading">
             <h2>OTHERS ALSO BOUGHT</h2>
             <div class="carousel-controls">
@@ -229,7 +123,7 @@
             </div>
           </div>
           <div class="card-carousel" data-carousel id="alsoBoughtCarousel"></div>
-        </div>
+        </section>
 
       </div>
     </main>
@@ -293,7 +187,7 @@
 
         /* Line items */
         itemsEl.innerHTML = cart.map(item => `
-          <div class="cart-line" data-id="${item.id}">
+          <li class="cart-line" data-id="${item.id}">
             <img src="${item.img}" alt="${item.name}">
             <div class="cart-line-info">
               <h4>${item.name}</h4>
@@ -308,7 +202,7 @@
                 <button onclick="changeLine('${item.id}', 1)" aria-label="Increase quantity">+</button>
               </div>
             </div>
-          </div>`).join('');
+          </li>`).join('');
 
         /* Subtotal */
         const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);

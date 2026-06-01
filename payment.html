@@ -6,216 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>OMEO — Checkout</title>
     <link rel="stylesheet" href="styles/main.css">
-    <style>
-      /* ── Payment page ──────────────────────────────────────── */
-      .payment-wrap {
-        max-width: 860px;
-        margin: 0 auto;
-        padding: 2rem 1rem 4rem;
-      }
-
-      /* Back link */
-      .back-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        color: #6b6b74;
-        text-decoration: none;
-        font-size: 0.9rem;
-        margin-bottom: 1.75rem;
-        transition: color 0.15s;
-      }
-      .back-link:hover { color: #1a1a1a; }
-      .back-link svg { flex-shrink: 0; }
-
-      .payment-header { margin-bottom: 2rem; }
-      .payment-header h1 { font-size: 2.4rem; margin: 0 0 0.1rem; color: #1a1a1a; }
-      .payment-header p { margin: 0; color: #6b6b74; font-size: 0.9rem; }
-
-      /* Two-column layout on desktop */
-      .payment-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-      @media(min-width: 700px) {
-        .payment-grid { grid-template-columns: 1fr 380px; }
-      }
-
-      /* ── Left: form column ── */
-      .payment-form-col { display: flex; flex-direction: column; gap: 1.75rem; }
-
-      /* Quick checkout */
-      .quick-checkout h2 { font-size: 1.1rem; margin: 0 0 0.9rem; color: #1a1a1a; }
-      .quick-buttons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
-      .btn-quick {
-        padding: 0.7rem 0.5rem;
-        border: 1.5px solid #e0e0e6;
-        border-radius: 8px;
-        background: #fff;
-        cursor: pointer;
-        font-family: 'Barlow', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #1a1a1a;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.35rem;
-        transition: border-color 0.15s, box-shadow 0.15s;
-      }
-      .btn-quick:hover { border-color: #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-
-      /* Divider */
-      .or-divider {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-        color: #9b9ba8;
-        font-size: 0.85rem;
-      }
-      .or-divider::before, .or-divider::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: #e8e8ee;
-      }
-
-      /* Form */
-      .payment-form { display: flex; flex-direction: column; gap: 1.1rem; }
-      .form-section-title {
-        font-size: 0.78rem;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: #6b6b74;
-        margin: 0 0 0.6rem;
-      }
-      .field-group { display: flex; flex-direction: column; gap: 0.3rem; }
-      .field-group label {
-        font-size: 0.82rem;
-        color: #6b6b74;
-        font-family: 'Barlow', sans-serif;
-      }
-      .field-group input,
-      .field-group textarea,
-      .field-group select {
-        width: 100%;
-        background: #f5f5f7;
-        border: 1px solid #e0e0e6;
-        border-radius: 8px;
-        padding: 0.65rem 0.85rem;
-        font-family: 'Barlow', sans-serif;
-        font-size: 0.95rem;
-        color: #1a1a1a;
-        outline: none;
-        transition: border-color 0.15s;
-        box-sizing: border-box;
-      }
-      .field-group input:focus,
-      .field-group textarea:focus { border-color: #1a1a1a; background: #fff; }
-      .field-group textarea { resize: vertical; min-height: 80px; }
-
-      .card-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.65rem; }
-
-      /* Promo code */
-      .promo-row { display: flex; gap: 0.65rem; }
-      .promo-row input { flex: 1; }
-      .btn-promo {
-        padding: 0.65rem 1.1rem;
-        border: 1.5px solid #d0d0d8;
-        border-radius: 8px;
-        background: transparent;
-        font-family: 'Barlow', sans-serif;
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #1a1a1a;
-        cursor: pointer;
-        white-space: nowrap;
-        transition: border-color 0.15s;
-      }
-      .btn-promo:hover { border-color: #1a1a1a; }
-
-      /* Checkout button */
-      .btn-checkout-main {
-        width: 100%;
-        padding: 0.95rem;
-        background: #1a1a1a;
-        color: #fff;
-        border: none;
-        border-radius: 8px;
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 1.3rem;
-        letter-spacing: 0.1em;
-        cursor: pointer;
-        transition: background 0.2s;
-        margin-top: 0.5rem;
-      }
-      .btn-checkout-main:hover { background: #333; }
-
-      /* ── Right: order summary ── */
-      .order-summary {
-        background: #f5f5f7;
-        border-radius: 12px;
-        padding: 1.5rem;
-        height: fit-content;
-        position: sticky;
-        top: 80px;
-      }
-      .order-summary h2 { font-size: 1.2rem; margin: 0 0 1.25rem; color: #1a1a1a; }
-
-      .summary-items { display: flex; flex-direction: column; gap: 0.9rem; margin-bottom: 1.25rem; }
-      .summary-item {
-        display: grid;
-        grid-template-columns: 52px 1fr auto;
-        gap: 0.75rem;
-        align-items: center;
-      }
-      .summary-item img {
-        width: 52px; height: 52px;
-        object-fit: cover; border-radius: 6px;
-        background: #e8e8ee;
-      }
-      .summary-item-info h4 { margin: 0 0 0.1rem; font-size: 0.88rem; font-family: 'Barlow', sans-serif; font-weight: 600; color: #1a1a1a; }
-      .summary-item-info p { margin: 0; font-size: 0.78rem; color: #6b6b74; }
-      .summary-item-price { font-size: 0.9rem; font-weight: 600; color: #1a1a1a; }
-
-      .summary-divider { border: 0; border-top: 1px solid #e8e8ee; margin: 0.75rem 0; }
-
-      .summary-row {
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.9rem;
-        color: #6b6b74;
-        margin-bottom: 0.5rem;
-      }
-      .summary-row span:last-child { color: #1a1a1a; font-weight: 500; }
-      .summary-total {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-top: 0.75rem;
-        padding-top: 0.75rem;
-        border-top: 1px solid #e8e8ee;
-      }
-      .summary-total-label { font-size: 0.95rem; font-weight: 600; color: #1a1a1a; }
-      .summary-total-value {
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 2rem;
-        color: #1a1a1a;
-        letter-spacing: 0.04em;
-      }
-
-      .secure-note {
-        margin-top: 1rem;
-        font-size: 0.78rem;
-        color: #9b9ba8;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.3rem;
-      }
-    </style>
+    <link rel="stylesheet" href="styles/payment.css">
   </head>
 
   <body class="dark-theme">
@@ -229,8 +20,6 @@
           <ul>
             <li><a href="index.html">HOME</a></li>
             <li><a href="search.html">CATALOGUE</a></li>
-            <li><a href="index.html#about">ABOUT</a></li>
-            <li><a href="index.html#contact">CONTACT</a></li>
           </ul>
         </nav>
 
@@ -253,19 +42,17 @@
 
     <!-- Mobile menu -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
-      <div class="mobile-menu-header">
+      <header class="mobile-menu-header">
         <a class="brand" href="index.html">OMEO</a>
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
       </div>
-      <div class="mobile-search">
+      <div class="mobile-search" role="search">
         <input type="search" placeholder="Search products…" id="mobileSearch">
         <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
       </div>
       <nav class="mobile-nav">
         <a href="index.html">HOME</a>
         <a href="search.html">CATALOGUE</a>
-        <a href="index.html#about">ABOUT US</a>
-        <a href="index.html#contact">CONTACT</a>
       </nav>
       <div class="mobile-nav-cart">
         <img src="assets/icons/shopping-cart-white-icon.png" alt="" class="nav-icon">
@@ -285,10 +72,10 @@
           Back to cart
         </a>
 
-        <div class="payment-header">
+        <header class="payment-header">
           <h1>CHECKOUT</h1>
           <p>Complete your order below</p>
-        </div>
+        </header>
 
         <div class="payment-grid">
 
@@ -318,17 +105,17 @@
 
             <!-- Contact -->
             <form class="payment-form" id="paymentForm" onsubmit="handleCheckout(event)">
-              <div>
-                <p class="form-section-title">Contact</p>
+              <fieldset>
+                <legend class="form-section-title">Contact</legend>
                 <div class="field-group">
                   <label for="email">Email address</label>
                   <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
                 </div>
-              </div>
+              </fieldset>
 
               <!-- Card details -->
-              <div>
-                <p class="form-section-title">Payment</p>
+              <fieldset>
+                <legend class="form-section-title">Payment</legend>
                 <div class="field-group" style="margin-bottom:0.65rem">
                   <label for="cardNumber">Card number</label>
                   <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456"
@@ -349,11 +136,11 @@
                     <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" inputmode="numeric">
                   </div>
                 </div>
-              </div>
+              </fieldset>
 
               <!-- Delivery -->
-              <div>
-                <p class="form-section-title">Delivery</p>
+              <fieldset>
+                <legend class="form-section-title">Delivery</legend>
                 <div class="field-group" style="margin-bottom:0.65rem">
                   <label for="address">Street address</label>
                   <input type="text" id="address" name="address" placeholder="123 Mountain St, Melbourne VIC 3000" autocomplete="street-address">
@@ -362,11 +149,11 @@
                   <label for="delivery">Delivery instructions (optional)</label>
                   <textarea id="delivery" name="delivery" placeholder="Leave at door, ring bell, etc."></textarea>
                 </div>
-              </div>
+              </fieldset>
 
               <!-- Promo -->
-              <div>
-                <p class="form-section-title">Promo code</p>
+              <fieldset>
+                <legend class="form-section-title">Promo code</legend>
                 <div class="promo-row">
                   <div class="field-group" style="margin:0;flex:1">
                     <input type="text" id="promoCode" name="promoCode" placeholder="Enter code">
@@ -374,7 +161,7 @@
                   <button class="btn-promo" type="button" onclick="applyPromo()">Apply</button>
                 </div>
                 <p id="promoMsg" style="margin:0.4rem 0 0;font-size:0.82rem;color:#6b6b74;display:none"></p>
-              </div>
+              </fieldset>
 
               <button class="btn-checkout-main" type="submit">PLACE ORDER</button>
             </form>
@@ -449,82 +236,6 @@
     </footer>
 
     <script src="script/main.js"></script>
-    <script>
-      /* ── Payment page logic ──────────────────────────────── */
-
-      const SHIPPING = 12;
-      let promoApplied = false;
-      let promoAmount  = 0;
-
-      function renderSummary() {
-        const cart     = getCart();
-        const itemsEl  = document.getElementById('summaryItems');
-        const subEl    = document.getElementById('summarySubtotal');
-        const shipEl   = document.getElementById('summaryShipping');
-        const totalEl  = document.getElementById('summaryTotal');
-
-        const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
-        const shipping = subtotal >= 500 ? 0 : SHIPPING;
-        const total    = subtotal + shipping - promoAmount;
-
-        itemsEl.innerHTML = cart.length === 0
-          ? '<p style="color:#6b6b74;font-size:0.9rem">Your cart is empty.</p>'
-          : cart.map(item => `
-              <div class="summary-item">
-                <img src="${item.img}" alt="${item.name}">
-                <div class="summary-item-info">
-                  <h4>${item.name}</h4>
-                  <p>${item.category} &times; ${item.qty}</p>
-                </div>
-                <span class="summary-item-price">$${(item.price * item.qty).toLocaleString()}</span>
-              </div>`).join('');
-
-        subEl.textContent  = '$' + subtotal.toLocaleString();
-        shipEl.textContent = shipping === 0 ? 'Free' : '$' + shipping;
-        totalEl.textContent = '$' + Math.max(0, total).toLocaleString();
-      }
-
-      function applyPromo() {
-        const code = document.getElementById('promoCode').value.trim().toUpperCase();
-        const msg  = document.getElementById('promoMsg');
-        const row  = document.getElementById('promoRow');
-        const disc = document.getElementById('promoDiscount');
-
-        const codes = { 'OMEO10': 10, 'SNOW20': 20, 'HIRE15': 15 };
-
-        if (codes[code]) {
-          promoAmount  = codes[code];
-          promoApplied = true;
-          msg.textContent = `Code applied! −$${promoAmount} off your order.`;
-          msg.style.color = '#2a9d4e';
-          msg.style.display = 'block';
-          disc.textContent = '−$' + promoAmount;
-          row.style.display = 'flex';
-          renderSummary();
-        } else {
-          promoApplied = false;
-          promoAmount  = 0;
-          msg.textContent = 'Invalid promo code.';
-          msg.style.color = '#e63946';
-          msg.style.display = 'block';
-          row.style.display = 'none';
-          renderSummary();
-        }
-      }
-
-      function formatCard(input) {
-        let v = input.value.replace(/\D/g, '').slice(0, 16);
-        input.value = v.replace(/(.{4})/g, '$1 ').trim();
-      }
-
-      function handleCheckout(e) {
-        e.preventDefault();
-        /* Clear cart and navigate to confirmation */
-        localStorage.removeItem('omeoCart');
-        location.href = 'confirmation.html';
-      }
-
-      document.addEventListener('DOMContentLoaded', renderSummary);
-    </script>
+    <script src="script/paymentPage.js"></script>
   </body>
 </html>

@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <header class="topbar topbar--solid">
+    <header class="topbar topbar--hero">
       <div class="container topbar-inner">
         <a class="brand" href="#">OMEO</a>
 
@@ -38,11 +38,11 @@
 
     <!-- Mobile navigation overlay -->
     <div class="mobile-menu" id="mobileMenu" aria-hidden="true" role="dialog" aria-label="Navigation">
-      <div class="mobile-menu-header">
+      <header class="mobile-menu-header">
         <a class="brand" href="index.html">OMEO</a>
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
-      </div>
-      <div class="mobile-search">
+      </header>
+      <div class="mobile-search" role="search">
         <input type="search" placeholder="Search products…" id="mobileSearch">
         <button type="button" aria-label="Search" onclick="if(document.getElementById('mobileSearch').value.trim())location.href='search.html?q='+encodeURIComponent(document.getElementById('mobileSearch').value.trim())"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
       </div>
@@ -58,6 +58,7 @@
     </div>
 
     <main>
+      <!-- ===== HERO ===== -->
       <section class="hero-visual" aria-label="Hero banner">
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -65,9 +66,15 @@
         </div>
       </section>
 
+      <!-- ===== ABOUT ===== -->
       <section id="about" class="container hero-copy">
         <h2>Welcome to OMEO</h2>
-        <p>Your one-stop shop for premium snow gear, apparel, and ski hire.</p>
+        <p>Your one-stop shop for premium snow gear, apparel, and ski hire. Based in Omeo, Victoria — gateway to the Victorian Alps — we've been outfitting riders and skiers since day one. Whether you're chasing powder on Mount Hotham or need gear for the whole family, we've got you covered.</p>
+        <div class="hero-copy-stats">
+          <div class="hero-stat"><span class="hero-stat-num">500+</span><span class="hero-stat-label">Products</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">10+</span><span class="hero-stat-label">Years experience</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">Free</span><span class="hero-stat-label">Shipping over $500</span></div>
+        </div>
       </section>
 
       <section class="container featured-section" aria-label="Featured products">
@@ -120,7 +127,7 @@
           </article>
 
           <article class="product-card" onclick="location.href='product.html?id=skis-azure'" style="cursor:pointer">
-            <img src="" alt="Azure Velocity Skis">
+            <img src="assets/media/products/skiis.png" alt="Azure Velocity Skis">
             <div class="product-body">
               <div class="product-body-row">
                 <div>
@@ -168,7 +175,7 @@
         <div class="catalogue-grid">
 
           <div class="cat-tile cat-skis">
-            <img src="https://images.unsplash.com/photo-1544976503-898a7f7f0c2b?auto=format&fit=crop&w=600&q=80" alt="Skis">
+            <img src="assets/media/products/skiis.png" alt="Skis">
             <div class="cat-label">SKIS</div>
           </div>
 
@@ -178,17 +185,17 @@
           </div>
 
           <div class="cat-tile cat-snowboard">
-            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80" alt="Snowboard">
+            <img src="assets/media/products/bataleon snow board.png" alt="Snowboard">
             <div class="cat-label">SNOW<br>BOARD</div>
           </div>
 
           <div class="cat-tile cat-boots">
-            <img src="https://images.unsplash.com/photo-1578897366842-9b2c28a9b7e9?auto=format&fit=crop&w=600&q=80" alt="Ski Boots">
+            <img src="assets/media/products/booties.png" alt="Ski Boots">
             <div class="cat-label">BOOTS</div>
           </div>
 
           <div class="cat-tile cat-apparel">
-            <img src="https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=600&q=80" alt="Ski Apparel">
+            <img src="assets/media/products/hoodie.png" alt="Ski Apparel">
             <div class="cat-label">APPAREL</div>
           </div>
 
@@ -212,7 +219,7 @@
         <h2 class="trust-heading">Why OMEO?</h2>
         <div class="trust-grid">
 
-          <div class="trust-item">
+          <article class="trust-item">
             <div class="trust-icon" aria-hidden="true">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="10"/>
@@ -223,9 +230,9 @@
             </div>
             <h3>Customer Service</h3>
             <p>At Omeo we are like home. We treat each customer like family and try our best to support you.</p>
-          </div>
+          </article>
 
-          <div class="trust-item">
+          <article class="trust-item">
             <div class="trust-icon" aria-hidden="true">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
@@ -233,9 +240,9 @@
             </div>
             <h3>Long service</h3>
             <p>Omeo has been around for years, providing the best service in the industry.</p>
-          </div>
+          </article>
 
-          <div class="trust-item">
+          <article class="trust-item">
             <div class="trust-icon" aria-hidden="true">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
@@ -244,7 +251,7 @@
             </div>
             <h3>Prices</h3>
             <p>We make sure to keep our prices competitive, providing the best equipments for the best prices.</p>
-          </div>
+          </article>
 
         </div>
       </section>

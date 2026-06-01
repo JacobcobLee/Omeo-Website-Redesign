@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap');
+@import './colors.css';
+@import './typography.css';
 
 .hero-copy{padding:1.5rem 0 0.5rem}
 .featured-section{padding:2rem 0 1rem}
@@ -40,22 +41,11 @@
   .catalogue-grid{grid-template-columns:1fr 1fr;grid-template-rows:180px 60px 180px;grid-template-areas:"skis snowboard" "text text" "boots apparel"}
   .cat-heading{font-size:1.4rem}
 }
- :root{
-	 --bg: #ffffff;
-	 --surface: #f7f7f9;
-	 --accent: #2b7cff;
-	 --text: #1b1b1f;
-	 --muted: #6b6b74;
-	 --radius: 8px;
- }
- 
  *{box-sizing:border-box}
  body{
 	 margin:0;
-	 font-family: 'Barlow', system-ui, sans-serif;
 	 color:var(--text);
 	 background:var(--bg);
-	 line-height:1.5;
  }
  .container{max-width:1000px;margin:0 auto;padding:1rem}
  
@@ -98,8 +88,15 @@
 
 .hero-visual{position:relative;height:600px;background-image:url("../assets/hero_banner_valentino.png");background-size:cover;background-position:top;display:flex;align-items:center;justify-content:center}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.35))}
-.hero-content{position:relative;z-index:10;width:100%;display:flex;align-items:center;justify-content:center}
-.hero-title{margin:0;color:#fff;font-size:4rem;letter-spacing:0.5rem;font-weight:800;text-shadow:0 2px 24px rgba(0,0,0,0.55)}
+.hero-content{position:relative;z-index:10;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:1rem;padding:0 1rem}
+.hero-title{margin:0;color:#fff;font-size:15rem;letter-spacing:0.5rem;font-weight:200;text-shadow:0 2px 24px rgba(0, 0, 0, 0.363)}
+.hero-subtitle{margin:0;color:rgba(255,255,255,0.85);font-size:1.05rem;font-family:'Barlow',sans-serif;letter-spacing:0.04em}
+.btn-hero{display:inline-block;background:#e63946;color:#fff;padding:0.75rem 2.2rem;border-radius:6px;text-decoration:none;font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.12em;transition:background 0.2s;margin-top:0.25rem}
+.btn-hero:hover{background:#c62f3b}
+.hero-copy-stats{display:flex;gap:2.5rem;margin-top:1.5rem;flex-wrap:wrap}
+.hero-stat{display:flex;flex-direction:column;gap:0.1rem}
+.hero-stat-num{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#1a1a1a;letter-spacing:0.04em;line-height:1}
+.hero-stat-label{font-size:0.8rem;color:#6b6b74;text-transform:uppercase;letter-spacing:0.08em}
 
 @media(max-width:700px){
 	.main-nav{display:none}
@@ -156,10 +153,6 @@
   color:#1a1a1a;
 }
 
-/* Bebas Neue for all headings */
-h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
-/* Keep hero title crisp */
-.hero-title{font-family:'Bebas Neue',sans-serif}
 
 /* ============================================================
    SOLID TOPBAR — sticky dark nav for all inner pages
@@ -169,14 +162,34 @@ h1,h2,h3,h4,h5,h6{font-family:'Bebas Neue',sans-serif;letter-spacing:0.04em}
   position:sticky;top:0;z-index:100;
   background:#111;
   border-bottom:1px solid rgba(255,255,255,0.07);
+  opacity: 0.7;
 }
-.topbar--solid .brand{color:#fff;text-decoration:none}
-.topbar--solid .main-nav a{color:#fff}
+.topbar--solid .brand{color:#ffffff00;text-decoration:none}
+.topbar--solid .main-nav a{opacity: 0.1; color:#fff}
 .topbar--solid .cart{color:#fff}
 .topbar--solid .search{background:rgba(255,255,255,0.1)}
 .topbar--solid .search input{background:transparent;color:#fff}
 .topbar--solid .search input::placeholder{color:rgba(255,255,255,0.45)}
 .topbar--solid .search button{color:#fff}
+
+/* ============================================================
+   HERO TOPBAR — fixed, floats above hero image on home page
+   Use <header class="topbar topbar--hero">
+   ============================================================ */
+.topbar--hero{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(0,0,0,0.32);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+.topbar--hero .brand{color:#fff;text-decoration:none}
+.topbar--hero .main-nav a{color:#fff;opacity:1}
+.topbar--hero .cart{color:#fff}
+.topbar--hero .search{background:rgba(255,255,255,0.15)}
+.topbar--hero .search input{background:transparent;color:#fff}
+.topbar--hero .search input::placeholder{color:rgba(255,255,255,0.5)}
+.topbar--hero .search button{color:#fff}
+.topbar--hero .hamburger span{background:#fff}
 
 /* ============================================================
    CART BADGE

@@ -30,7 +30,7 @@ const OMEO_PRODUCTS = [
     name: 'Azure Velocity Skis',
     category: 'Skis',
     price: 599,
-    img: ''
+    img: 'assets/media/products/skiis.png'
   },
   {
     id: 'bag-pro',
@@ -44,7 +44,7 @@ const OMEO_PRODUCTS = [
     name: 'Booties',
     category: 'Footwear',
     price: 79,
-    img: ''
+    img: 'assets/media/products/booties.png'
   },
   {
     id: 'bindings-blaster',
