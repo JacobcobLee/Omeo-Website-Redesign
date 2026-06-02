@@ -30,10 +30,14 @@
 .cat-snowboard{grid-area:snowboard}
 .cat-boots{grid-area:boots}
 .cat-apparel{grid-area:apparel}
-.cat-tile{position:relative;border-radius:12px;overflow:hidden;background:#ccc}
-.cat-tile img{width:100%;height:100%;object-fit:cover;display:block}
-.cat-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.45) 0%,transparent 55%)}
-.cat-label{position:absolute;inset:auto 0 1rem 0;z-index:1;text-align:center;color:#fff;font-size:1rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,0.4);line-height:1.25}
+.cat-tile{position:relative;border-radius:12px;overflow:hidden;background:#ccc;display:block;text-decoration:none;cursor:pointer;transition:transform 0.22s ease,box-shadow 0.22s ease}
+.cat-tile:hover{transform:scale(1.03);box-shadow:0 12px 32px rgba(0,0,0,0.22)}
+.cat-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.3s ease}
+.cat-tile:hover img{transform:scale(1.06)}
+.cat-tile::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);transition:opacity 0.22s ease}
+.cat-tile:hover::after{opacity:0.85}
+.cat-label{position:absolute;inset:auto 0 1rem 0;z-index:1;text-align:center;color:#fff;font-size:1rem;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,0.4);line-height:1.25;transition:letter-spacing 0.22s ease}
+.cat-tile:hover .cat-label{letter-spacing:0.3em}
 .cat-eyebrow{margin:0;font-size:0.85rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--muted)}
 .cat-heading{margin:0.4rem 0 0;font-size:2.4rem;font-weight:900;line-height:1.05;letter-spacing:0.06em;text-transform:uppercase}
 
@@ -160,12 +164,13 @@
    ============================================================ */
 .topbar--solid{
   position:sticky;top:0;z-index:100;
-  background:#111;
+  background:rgba(17,17,17,0.92);
   border-bottom:1px solid rgba(255,255,255,0.07);
-  opacity: 0.7;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
 }
-.topbar--solid .brand{color:#ffffff00;text-decoration:none}
-.topbar--solid .main-nav a{opacity: 0.1; color:#fff}
+.topbar--solid .brand{color:#fff;text-decoration:none}
+.topbar--solid .main-nav a{opacity:1;color:#fff}
 .topbar--solid .cart{color:#fff}
 .topbar--solid .search{background:rgba(255,255,255,0.1)}
 .topbar--solid .search input{background:transparent;color:#fff}
@@ -595,5 +600,19 @@
 }
 .specs-list li strong{color:#444;min-width:90px;flex-shrink:0}
 
-
+/* ============================================================
+   SCROLL REVEAL — Bold & dramatic style
+   ============================================================ */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(70px);
+  transition:opacity 0.85s cubic-bezier(0.16,1,0.3,1),
+             transform 0.85s cubic-bezier(0.16,1,0.3,1);
+}
+[data-reveal].is-visible{opacity:1;transform:translateY(0)}
+[data-reveal-delay="1"]{transition-delay:0.1s}
+[data-reveal-delay="2"]{transition-delay:0.25s}
+[data-reveal-delay="3"]{transition-delay:0.4s}
+[data-reveal-delay="4"]{transition-delay:0.55s}
+[data-reveal-delay="5"]{transition-delay:0.7s}
 

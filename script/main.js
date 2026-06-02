@@ -52,6 +52,27 @@ const OMEO_PRODUCTS = [
     category: 'Bindings',
     price: 199,
     img: 'assets/bataleon-snow-binder.png'
+  },
+  {
+    id: 'skis-mindbender',
+    name: 'Mindbender 90 Skis',
+    category: 'Skis',
+    price: 749,
+    img: 'assets/media/products/Skis_F26_Mindbender90_Base_5000x.jpg'
+  },
+  {
+    id: 'jacket-sabre',
+    name: 'Sabre Snow Jacket',
+    category: 'Apparel',
+    price: 649,
+    img: 'assets/media/products/Arteryx_warmJacket_F25-X000010536-Sabre-Jacket-Black_5000x.jpg'
+  },
+  {
+    id: 'goggles-method',
+    name: 'Method II Snow Goggles',
+    category: 'Accessories',
+    price: 219,
+    img: 'assets/media/METHOD_II_Googles.jpg'
   }
 ];
 
@@ -361,12 +382,118 @@ function initContactForm() {
   if (!form) return;
   form.addEventListener('submit', e => {
     e.preventDefault();
-    const name  = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    console.log('Contact form submitted', { name, email });
+    const name  = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
     alert('Thanks, ' + (name || 'friend') + '! We\'ll be in touch.');
     form.reset();
   });
+}
+
+/* ============================================================
+   SCROLL REVEAL
+   Adds data-reveal to below-fold elements then observes them.
+   Works without libraries — gracefully degrades if JS is off.
+   ============================================================ */
+function initScrollReveal() {
+  if (!window.IntersectionObserver) return;
+
+  // Single elements that slide up on their own
+  const singles = [
+    '#about h2',
+    '#about > p',
+    '.featured-section .section-heading',
+    '.trust-heading',
+    '.catalogue-section',
+    '#contact h2',
+    '#contact form',
+    '.banner-section',
+  ];
+  singles.forEach(sel =>
+    document.querySelectorAll(sel).forEach(el =>
+      el.setAttribute('data-reveal', '')
+    )
+  );
+
+  // Staggered groups — siblings get increasing delays
+  ['.hero-copy-stats .hero-stat', '.trust-grid .trust-item'].forEach(sel =>
+    document.querySelectorAll(sel).forEach((el, i) => {
+      el.setAttribute('data-reveal', '');
+      el.setAttribute('data-reveal-delay', Math.min(i + 1, 5));
+    })
+  );
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target); // fire once only
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+}
+
+/* ============================================================
+   HERO PARALLAX
+   Background image scrolls at 38% of page scroll speed,
+   creating a depth effect as the hero scrolls out of view.
+   ============================================================ */
+function initParallax() {
+  const hero = document.querySelector('.hero-visual');
+  if (!hero) return;
+
+  let ticking = false;
+
+  const update = () => {
+    const scrollY = window.scrollY;
+    if (scrollY > hero.offsetTop + hero.offsetHeight) { ticking = false; return; }
+    hero.style.backgroundPositionY = `calc(0% + ${scrollY * 0.38}px)`;
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+}
+
+/* ============================================================
+   ANIMATED STAT COUNTERS
+   Numbers like "500+" and "10+" count up from 0 when they
+   scroll into view. Non-numeric values (e.g. "Free") are skipped.
+   ============================================================ */
+function initStatCounters() {
+  const stats = document.querySelectorAll('.hero-stat-num');
+  if (!stats.length || !window.IntersectionObserver) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+
+      const el      = entry.target;
+      const text    = el.textContent.trim();
+      const match   = text.match(/^(\d+)(\D*)$/);
+      if (!match) return; // "Free" → skip
+
+      const target   = parseInt(match[1], 10);
+      const suffix   = match[2];
+      const duration = 2200;
+      const start    = performance.now();
+
+      const tick = (now) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased    = 1 - Math.pow(1 - progress, 4); // quartic ease-out: fast start, slow finish
+        el.textContent = Math.round(eased * target) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+
+      el.textContent = '0' + suffix;
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.6 });
+
+  stats.forEach(el => observer.observe(el));
 }
 
 /* ============================================================
@@ -378,4 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearchOverlay();
   initCarousel();
   initContactForm();
+  initScrollReveal();
+  initParallax();
+  initStatCounters();
 });

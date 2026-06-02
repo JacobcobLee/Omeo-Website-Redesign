@@ -45,7 +45,7 @@
       <header class="mobile-menu-header">
         <a class="brand" href="index.html">OMEO</a>
         <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close menu">✕</button>
-      </div>
+      </header>
       <div class="mobile-search" role="search">
         <input type="search" placeholder="Search products…" id="mobileSearch">
         <button type="button" aria-label="Search"><img src="assets/icons/search.png" alt="" class="nav-icon"></button>
@@ -119,21 +119,21 @@
                 <div class="field-group" style="margin-bottom:0.65rem">
                   <label for="cardNumber">Card number</label>
                   <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456"
-                    maxlength="19" inputmode="numeric" autocomplete="cc-number"
+                    maxlength="19" inputmode="numeric" autocomplete="cc-number" required
                     oninput="formatCard(this)">
                 </div>
                 <div class="card-row">
                   <div class="field-group">
                     <label for="cardMonth">Month</label>
-                    <input type="text" id="cardMonth" name="cardMonth" placeholder="MM" maxlength="2" inputmode="numeric">
+                    <input type="text" id="cardMonth" name="cardMonth" placeholder="MM" maxlength="2" inputmode="numeric" required>
                   </div>
                   <div class="field-group">
                     <label for="cardYear">Year</label>
-                    <input type="text" id="cardYear" name="cardYear" placeholder="YY" maxlength="2" inputmode="numeric">
+                    <input type="text" id="cardYear" name="cardYear" placeholder="YY" maxlength="2" inputmode="numeric" required>
                   </div>
                   <div class="field-group">
                     <label for="cvv">CVV</label>
-                    <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" inputmode="numeric">
+                    <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" inputmode="numeric" required>
                   </div>
                 </div>
               </fieldset>
@@ -143,7 +143,7 @@
                 <legend class="form-section-title">Delivery</legend>
                 <div class="field-group" style="margin-bottom:0.65rem">
                   <label for="address">Street address</label>
-                  <input type="text" id="address" name="address" placeholder="123 Mountain St, Melbourne VIC 3000" autocomplete="street-address">
+                  <input type="text" id="address" name="address" placeholder="123 Mountain St, Melbourne VIC 3000" autocomplete="street-address" required>
                 </div>
                 <div class="field-group">
                   <label for="delivery">Delivery instructions (optional)</label>

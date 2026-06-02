@@ -13,22 +13,31 @@
 
         let list = [...ALL_PRODUCTS];
 
+        // "Did you mean?" element reference (used inside and outside query block)
+        const dym     = document.getElementById('didYouMean');
+        const dymLink = document.getElementById('didYouMeanLink');
+
         // Filter by query
         if (query) {
           list = list.filter(p =>
             p.name.toLowerCase().includes(query) ||
             p.category.toLowerCase().includes(query)
           );
-          // // Show "did you mean" for snowboard typo demo
-          // const dym     = document.getElementById('didYouMean');
-          // const dymLink = document.getElementById('didYouMeanLink');
-          // if (query === 'snowbaord' || query === 'snwoboard') {
-          //   dymLink.textContent = "Turbo Men's Snowboard";
-          //   dymLink.href = 'product.html?id=snowboard';
-          //   dym.hidden = false;
-          // } else {
-          //   dym.hidden = true;
-          // }
+          // Show "did you mean?" for common typos
+          if (dym && dymLink) {
+            const typos = { 'snowbaord': 'snowboard', 'snwoboard': 'snowboard', 'skiis': 'skis', 'aparel': 'apparel', 'booots': 'boots' };
+            const suggestion = typos[query];
+            if (suggestion) {
+              dymLink.textContent = suggestion;
+              dymLink.href = 'search.html?q=' + encodeURIComponent(suggestion);
+              dym.hidden = false;
+            } else {
+              dym.hidden = true;
+            }
+          }
+        } else {
+          // No query — make sure the suggestion is hidden
+          if (dym) dym.hidden = true;
         }
 
         // Sort
@@ -82,32 +91,32 @@
       }
 
       /* --- Render "In your cart" preview --- */
-      // function renderCartPreview() {
-      //   const cart    = getCart();
-      //   const preview = document.getElementById('cartPreview');
-      //   const actions = document.getElementById('cartPreviewActions');
+      function renderCartPreview() {
+        const cart    = getCart();
+        const preview = document.getElementById('cartPreview');
+        const actions = document.getElementById('cartPreviewActions');
 
-      //   if (cart.length === 0) {
-      //     preview.innerHTML = '<p class="cart-preview-empty">Your cart is empty.</p>';
-      //     actions.hidden = true;
-      //     return;
-      //   }
+        if (cart.length === 0) {
+          preview.innerHTML = '<p class="cart-preview-empty">Your cart is empty.</p>';
+          actions.hidden = true;
+          return;
+        }
 
-      //   preview.innerHTML = `
-      //     <div class="cart-preview-list">
-      //       ${cart.map(item => `
-      //         <div class="cart-preview-item">
-      //           <img src="${item.img}" alt="${item.name}">
-      //           <div class="cart-preview-item-info">
-      //             <strong>${item.name}</strong>
-      //             <p>${item.category} &middot; Qty: ${item.qty}</p>
-      //           </div>
-      //           <span class="cart-preview-item-price">$${(item.price * item.qty).toLocaleString()}</span>
-      //         </div>
-      //       `).join('')}
-      //     </div>`;
-      //   actions.hidden = false;
-      // }
+        preview.innerHTML = `
+          <div class="cart-preview-list">
+            ${cart.map(item => `
+              <div class="cart-preview-item">
+                <img src="${item.img}" alt="${item.name}">
+                <div class="cart-preview-item-info">
+                  <strong>${item.name}</strong>
+                  <p>${item.category} &middot; Qty: ${item.qty}</p>
+                </div>
+                <span class="cart-preview-item-price">$${(item.price * item.qty).toLocaleString()}</span>
+              </div>
+            `).join('')}
+          </div>`;
+        actions.hidden = false;
+      }
 
       /* --- Search trigger --- */
       function runSearch() {

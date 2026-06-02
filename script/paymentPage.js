@@ -22,7 +22,8 @@
                 <img src="${item.img}" alt="${item.name}">
                 <div class="summary-item-info">
                   <h4>${item.name}</h4>
-                  <p>${item.category} &times; ${item.qty}</p>
+                  <p class="item-category">${item.category}</p>
+                  <p class="item-qty">&times; ${item.qty}</p>
                 </div>
                 <span class="summary-item-price">$${(item.price * item.qty).toLocaleString()}</span>
               </div>`).join('');
@@ -67,7 +68,9 @@
 
       function handleCheckout(e) {
         e.preventDefault();
-        /* Clear cart and navigate to confirmation */
+        /* Save cart to sessionStorage BEFORE clearing, so confirmation page can read it */
+        const cartSnapshot = localStorage.getItem('omeoCart') || '[]';
+        sessionStorage.setItem('lastOrder', cartSnapshot);
         localStorage.removeItem('omeoCart');
         location.href = 'confirmation.html';
       }
