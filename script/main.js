@@ -497,6 +497,68 @@ function initStatCounters() {
 }
 
 /* ============================================================
+   3D HERO SNOWBOARDER
+   Scroll-driven perspective effect: boarder starts recessed
+   behind the screen plane and bursts forward as user scrolls.
+   Runs on home page only (hero-board element present).
+   ============================================================ */
+function initHeroBoard() {
+  const hero  = document.querySelector('.hero-visual');
+  const board = document.querySelector('.hero-board');
+  if (!hero || !board) return;
+
+  let ticking = false;
+
+  const THRESHOLD = 0.05; // invisible for first 5% of scroll
+
+  const update = () => {
+    const scrollY     = window.scrollY;
+    const heroHeight  = hero.offsetHeight;
+    const scrollRatio = scrollY / heroHeight;
+
+    // Hide completely before threshold, then fade in
+    if (scrollRatio < THRESHOLD) {
+      board.style.opacity = '0';
+      ticking = false;
+      return;
+    }
+    board.style.opacity = '1';
+
+    // Remap 5%→100% of scroll to 0→1 progress
+    const raw = Math.min(1, (scrollRatio - THRESHOLD) / (1 - THRESHOLD));
+
+    // power ease-out: moves fast initially, eases near the end
+    const p = 1 - Math.pow(1 - raw, 2.8);
+
+    // 3D transforms
+    const rotateX = 42  - (p * 56);    // 42° → -14°  (tips toward viewer)
+    const rotateZ =  15 - (p * 15);    //  15° →  0°  (clockwise lean, straightens on scroll)
+    const scale   = 0.5 + (p * 0.85); //  0.5 → 1.35  (grows as it approaches)
+    const tZ      = -200 + (p * 420);  // -200px → 220px (bursts out of screen)
+
+    // Screen-space drift — applied first so movement is in viewport coords
+    const tX =  p * 500;               //   0px →  50px (slides right)
+    const tY = -90 + (p * 1000);       // -90px →  30px (comes downward)
+
+    // Drop shadow grows as boarder approaches
+    const sY = p * 38;
+    const sB = p * 60;
+    const sA = (p * 0.6).toFixed(3);
+
+    board.style.transform = `translateX(${tX}px) translateY(${tY}px) rotateX(${rotateX}deg) rotateZ(${rotateZ}deg) scale(${scale}) translateZ(${tZ}px)`;
+    board.style.filter    = `drop-shadow(0 ${sY}px ${sB}px rgba(0,0,0,${sA}))`;
+
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+
+  update(); // set initial state immediately
+}
+
+/* ============================================================
    Boot — runs on every page
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
@@ -508,4 +570,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initParallax();
   initStatCounters();
+  initHeroBoard();
 });
